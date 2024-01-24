@@ -1,7 +1,7 @@
 import LoginModal from "@/app/(beforeLogin)/_component/LoginModal";
 
-const LoginModalPage = () => {
+const InterceptLoginPage = () => {
   return <LoginModal />;
 };
 
-export default LoginModalPage;
+export default InterceptLoginPage;
