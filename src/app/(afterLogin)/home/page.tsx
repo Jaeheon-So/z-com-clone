@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./home.module.css";
 import { TabProvider } from "./_component/TabProvider";
 import Tab from "./_component/Tab";
+import PostForm from "./_component/PostForm";
 
 const HomePage = () => {
   return (
@@ -9,8 +10,8 @@ const HomePage = () => {
       HomePage
       <TabProvider>
         <Tab />
-        {/* <PostForm />
-        <Post/>
+        <PostForm />
+        {/* <Post/>
         <Post/>
         <Post/>
         <Post/>
