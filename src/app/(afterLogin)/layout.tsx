@@ -5,6 +5,7 @@ import Image from "next/image";
 import zLogo from "../../../public/zlogo.png";
 import NavMenu from "./_component/NavMenu";
 import SearchSvg from "./_svg/SearchSvg";
+import LogoutButton from "./_component/LogoutButton";
 
 type Props = {
   children: ReactNode;
@@ -21,7 +22,7 @@ const AfterLoginLayout = ({ children }: Props) => (
             </div>
           </Link>
           <NavMenu />
-          {/* <LogoutButton /> */}
+          <LogoutButton />
         </div>
       </section>
     </header>
