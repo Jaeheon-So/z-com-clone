@@ -7,6 +7,7 @@ import NavMenu from "./_component/NavMenu";
 import SearchSvg from "./_svg/SearchSvg";
 import LogoutButton from "./_component/LogoutButton";
 import TrendSection from "./_component/TrendSection";
+import FollowRecommend from "./_component/FollowRecommend";
 
 type Props = {
   children: ReactNode;
@@ -40,9 +41,9 @@ const AfterLoginLayout = ({ children }: Props) => (
           <TrendSection />
           <div className={style.followRecommend}>
             <h3>팔로우 추천</h3>
-            {/* <FollowRecommend /> */}
-            {/* <FollowRecommend /> */}
-            {/* <FollowRecommend /> */}
+            <FollowRecommend />
+            <FollowRecommend />
+            <FollowRecommend />
           </div>
         </section>
       </div>
