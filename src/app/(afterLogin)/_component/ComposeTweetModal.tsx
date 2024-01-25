@@ -28,7 +28,7 @@ const ComposeTweetModal = () => {
   };
 
   return (
-    <div className={style.modalBackground}>
+    <div className={style.modalBackground} onClick={onClickClose}>
       <div className={style.modal}>
         <button className={style.closeButton} onClick={onClickClose}>
           <CloseSvg />

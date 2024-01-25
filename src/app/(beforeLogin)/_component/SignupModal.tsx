@@ -57,7 +57,7 @@ export default function SignupModal() {
 
   return (
     <>
-      <div className={style.modalBackground}>
+      <div className={style.modalBackground} onClick={onClickClose}>
         <div className={style.modal}>
           <div className={style.modalHeader}>
             <button className={style.closeButton} onClick={onClickClose}>
