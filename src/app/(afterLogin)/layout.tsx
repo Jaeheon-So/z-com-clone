@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import zLogo from "../../../public/zlogo.png";
 import NavMenu from "./_component/NavMenu";
-import SearchSvg from "./_svg/SearchSvg";
 import LogoutButton from "./_component/LogoutButton";
 import TrendSection from "./_component/TrendSection";
 import FollowRecommend from "./_component/FollowRecommend";
+import RightSearchForm from "./_component/RightSearchForm";
 
 type Props = {
   children: ReactNode;
@@ -33,12 +33,7 @@ const AfterLoginLayout = ({ children, modal }: Props) => (
       <div className={style.rightSectionInner}>
         <main className={style.main}>{children}</main>
         <section className={style.rightSection}>
-          <div style={{ marginBottom: 60, width: "inherit" }}>
-            <form className={style.search}>
-              <SearchSvg />
-              <input type="search" />
-            </form>
-          </div>
+          <RightSearchForm />
           <TrendSection />
           <div className={style.followRecommend}>
             <h3>팔로우 추천</h3>
