@@ -6,7 +6,11 @@ import RepostSvg from "../_svg/RepostSvg";
 import style from "./actionButtons.module.css";
 import React from "react";
 
-const ActionButtons = () => {
+type Props = {
+  white?: boolean;
+};
+
+const ActionButtons = ({ white }: Props) => {
   const commented = true;
   const reposted = true;
   const liked = false;
@@ -17,19 +21,31 @@ const ActionButtons = () => {
 
   return (
     <div className={style.actionButtons}>
-      <div className={`${style.commentButton} ${commented && style.commented}`}>
+      <div
+        className={`${style.commentButton} ${commented && style.commented} ${
+          white && style.white
+        }`}
+      >
         <button onClick={onClickComment}>
           <CommentSvg />
         </button>
         <div className={style.count}>{1 || ""}</div>
       </div>
-      <div className={`${style.repostButton} ${reposted && style.reposted}`}>
+      <div
+        className={`${style.repostButton} ${reposted && style.reposted} ${
+          white && style.white
+        }`}
+      >
         <button onClick={onClickRepost}>
           <RepostSvg />
         </button>
         <div className={style.count}>{1 || ""}</div>
       </div>
-      <div className={`${style.heartButton} ${liked && style.liked}`}>
+      <div
+        className={`${style.heartButton} ${liked && style.liked} ${
+          white && style.white
+        }`}
+      >
         <button onClick={onClickHeart}>
           <HeartSvg />
         </button>

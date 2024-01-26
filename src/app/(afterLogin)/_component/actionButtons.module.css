@@ -10,6 +10,22 @@
   fill: rgb(83, 100, 113);
 }
 
+.commentButton.white svg,
+.commentButton.white .count {
+  fill: white;
+  color: white;
+}
+.repostButton.white svg,
+.repostButton.white .count {
+  fill: white;
+  color: white;
+}
+.heartButton.white svg,
+.heartButton.white .count {
+  fill: white;
+  color: white;
+}
+
 .commentButton,
 .repostButton,
 .heartButton {
