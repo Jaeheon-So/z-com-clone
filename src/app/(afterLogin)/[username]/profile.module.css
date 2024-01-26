@@ -32,6 +32,7 @@
   align-items: center;
   border-bottom: 1px solid rgb(239, 243, 244);
   padding: 12px 16px;
+  margin-top: 53px;
 }
 
 .userImage {
@@ -83,6 +84,7 @@
   justify-content: center;
   cursor: pointer;
   background: none;
+  transition: 0.2s;
 }
 .backButton:hover {
   background-color: rgba(15, 20, 25, 0.1);
