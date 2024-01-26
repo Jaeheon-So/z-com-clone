@@ -24,7 +24,7 @@ const PostArticle = ({ children, post }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    router.push(`${post.User.id}/status/${post.postId}`);
+    router.push(`/${post.User.id}/status/${post.postId}`);
   };
 
   return (

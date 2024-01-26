@@ -8,9 +8,9 @@ import PhotoModalCloseButton from "./_component/PhotoModalCloseButton";
 const PhotoModalPage = () => {
   const photo = {
     imageId: 1,
-    link: faker.image.urlLoremFlickr(),
+    link: "/zlogo.png",
     Post: {
-      content: faker.lorem.text(),
+      content: "임시 글귀!!",
     },
   };
 

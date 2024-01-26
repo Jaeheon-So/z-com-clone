@@ -47,7 +47,10 @@ const ComposeTweetModal = () => {
         <form className={style.modalForm} onSubmit={onSubmit}>
           <div className={style.modalBody}>
             <div className={style.postUserSection}>
-              <div className={style.postUserImage}>
+              <div
+                className={style.postUserImage}
+                // onClick={() => router.push("/explore")}
+              >
                 <img src={me.image} alt={me.id} />
               </div>
             </div>

@@ -30,12 +30,13 @@ const Post = ({ noImage }: Props) => {
 
   if (Math.random() < 0.5 && !noImage) {
     target.Images.push(
-      { imageId: 1, link: faker.image.urlLoremFlickr() },
-      { imageId: 2, link: faker.image.urlLoremFlickr() },
-      { imageId: 3, link: faker.image.urlLoremFlickr() },
-      { imageId: 4, link: faker.image.urlLoremFlickr() }
+      { imageId: 1, link: "/zLogo.png" },
+      { imageId: 2, link: "/favicon.png" },
+      { imageId: 3, link: "/yRsRRjGO.jpg" },
+      { imageId: 4, link: "/5Udwvqim.jpg" }
     );
   }
+  const index = Math.floor(Math.random() * 3);
 
   return (
     <PostArticle post={target}>
@@ -62,12 +63,13 @@ const Post = ({ noImage }: Props) => {
           <div className={style.postImageSection}>
             {target.Images && target.Images.length > 0 && (
               <Link
-                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
+                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[index].imageId}`}
                 className={style.postImageSection}
               >
-                <img src={target.Images[0].link} alt="" />
+                <img src={target.Images[index].link} alt="" />
               </Link>
             )}
+            {/* <PostImages post={target} /> */}
           </div>
           <ActionButtons />
         </div>
