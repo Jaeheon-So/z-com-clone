@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./post.module.css";
 import Link from "next/link";
 import dayjs from "dayjs";
@@ -6,7 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import ActionButtons from "./ActionButtons";
 import PostArticle from "./PostArticle";
-import { faker } from "@faker-js/faker";
+import PostImages from "./PostImages";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -28,15 +27,13 @@ const Post = ({ noImage }: Props) => {
     Images:
       Math.random() < 0.5 && !noImage
         ? [
-            { imageId: 1, link: "/zLogo.png" },
+            { imageId: 1, link: "/zlogo.png" },
             { imageId: 2, link: "/favicon.png" },
             { imageId: 3, link: "/yRsRRjGO.jpg" },
             { imageId: 4, link: "/5Udwvqim.jpg" },
           ]
         : [],
   };
-
-  const index = Math.floor(Math.random() * 3);
 
   return (
     <PostArticle post={target}>
@@ -61,15 +58,15 @@ const Post = ({ noImage }: Props) => {
           </div>
           <div>{target.content}</div>
           <div className={style.postImageSection}>
-            {target.Images && target.Images.length > 0 && (
+            {/* {target.Images.length > 0 ? (
               <Link
                 href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[index].imageId}`}
                 className={style.postImageSection}
               >
-                <img src={target.Images[index].link} alt="" />
+                <img src={target.Images[index].link} alt="img" />
               </Link>
-            )}
-            {/* <PostImages post={target} /> */}
+            ) : null} */}
+            <PostImages post={target} />
           </div>
           <ActionButtons />
         </div>
