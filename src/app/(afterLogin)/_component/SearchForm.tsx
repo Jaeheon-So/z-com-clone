@@ -2,11 +2,15 @@ import React from "react";
 import SearchSvg from "../_svg/SearchSvg";
 import style from "./rightSearchForm.module.css";
 
-const SearchForm = () => {
+type Props = {
+  q?: string;
+};
+
+const SearchForm = ({ q }: Props) => {
   return (
     <form className={style.search}>
       <SearchSvg />
-      <input type="search" />
+      <input type="search" defaultValue={q || ""} />
     </form>
   );
 };
