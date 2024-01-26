@@ -1,7 +1,7 @@
 import React from "react";
 
-const UserStatusIdPage = () => {
-  return <div>UserStatusIdPage</div>;
+const SinglePostPage = () => {
+  return <div>SinglePostPage</div>;
 };
 
-export default UserStatusIdPage;
+export default SinglePostPage;
