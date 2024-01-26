@@ -24,15 +24,12 @@ const Post = ({ noImage }: Props) => {
     },
     content: "클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ",
     createdAt: new Date(),
-    Images:
-      Math.random() < 0.5 && !noImage
-        ? [
-            { imageId: 1, link: "/zlogo.png" },
-            { imageId: 2, link: "/favicon.png" },
-            { imageId: 3, link: "/yRsRRjGO.jpg" },
-            { imageId: 4, link: "/5Udwvqim.jpg" },
-          ]
-        : [],
+    Images: [
+      { imageId: 1, link: "/zlogo.png" },
+      { imageId: 2, link: "/favicon.png" },
+      { imageId: 3, link: "/yRsRRjGO.jpg" },
+      { imageId: 4, link: "/5Udwvqim.jpg" },
+    ],
   };
 
   return (

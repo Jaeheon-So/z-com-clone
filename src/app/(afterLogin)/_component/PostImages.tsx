@@ -18,8 +18,8 @@ type Props = {
 const PostImages = ({ post }: Props) => {
   // const index = Math.floor(Math.random() * 3);
 
-  if (!post.Images) return null;
-  if (!post.Images.length) return null;
+  // if (!post.Images) return null;
+  // if (!post.Images.length) return null;
 
   return (
     <Link
