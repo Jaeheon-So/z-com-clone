@@ -10,12 +10,19 @@ const ComposeTweetModal = () => {
   const router = useRouter();
   const [content, setContent] = useState();
   const imageRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const onSubmit = () => {};
 
   const onClickClose = () => {
     router.back();
     // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
+  };
+
+  const modalOutSideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current === e.target) {
+      router.back();
+    }
   };
 
   const onClickButton = () => {};
@@ -28,7 +35,11 @@ const ComposeTweetModal = () => {
   };
 
   return (
-    <div className={style.modalBackground} onClick={onClickClose}>
+    <div
+      className={style.modalBackground}
+      ref={modalRef}
+      onClick={modalOutSideClick}
+    >
       <div className={style.modal}>
         <button className={style.closeButton} onClick={onClickClose}>
           <CloseSvg />

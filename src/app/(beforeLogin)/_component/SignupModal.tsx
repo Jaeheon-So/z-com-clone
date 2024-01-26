@@ -2,20 +2,27 @@
 
 import style from "@/app/(beforeLogin)/_component/signup.module.css";
 import { useRouter } from "next/navigation";
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import CloseSvg from "../_svg/CloseSvg";
 
 export default function SignupModal() {
+  const router = useRouter();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [image, setImage] = useState("");
   const [imageFile, setImageFile] = useState<File>();
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const router = useRouter();
   const onClickClose = () => {
     router.back();
     // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
+  };
+
+  const modalOutSideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current === e.target) {
+      router.back();
+    }
   };
 
   const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -25,9 +32,11 @@ export default function SignupModal() {
   const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
     setPassword(e.target.value);
   };
+
   const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
     setNickname(e.target.value);
   };
+
   const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.target.files && setImageFile(e.target.files[0]);
   };
@@ -57,7 +66,11 @@ export default function SignupModal() {
 
   return (
     <>
-      <div className={style.modalBackground} onClick={onClickClose}>
+      <div
+        className={style.modalBackground}
+        ref={modalRef}
+        onClick={modalOutSideClick}
+      >
         <div className={style.modal}>
           <div className={style.modalHeader}>
             <button className={style.closeButton} onClick={onClickClose}>
@@ -107,7 +120,10 @@ export default function SignupModal() {
                 />
               </div>
               <div className={style.inputDiv}>
-                <label className={style.inputLabel} htmlFor="image">
+                <label
+                  className={`${style.inputLabel} ${style.inputProfileLabel}`}
+                  htmlFor="image"
+                >
                   프로필
                 </label>
                 <input

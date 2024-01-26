@@ -2,7 +2,7 @@
 
 import style from "@/app/(beforeLogin)/_component/login.module.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CloseSvg from "../_svg/CloseSvg";
 
 const LoginModal = () => {
@@ -10,9 +10,18 @@ const LoginModal = () => {
   const [id, setId] = useState();
   const [password, setPassword] = useState();
   const [message, setMessage] = useState();
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const onSubmit = () => {};
+
   const onClickClose = () => {
     router.back();
+  };
+
+  const modalOutSideClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current === e.target) {
+      router.back();
+    }
   };
 
   const onChangeId = () => {};
@@ -20,7 +29,11 @@ const LoginModal = () => {
   const onChangePassword = () => {};
 
   return (
-    <div className={style.modalBackground} onClick={onClickClose}>
+    <div
+      className={style.modalBackground}
+      ref={modalRef}
+      onClick={modalOutSideClick}
+    >
       <div className={style.modal}>
         <div className={style.modalHeader}>
           <button className={style.closeButton} onClick={onClickClose}>
