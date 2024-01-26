@@ -1,16 +1,28 @@
+"use client"; // 잠시 편의상 클라이언트로
+
 import React from "react";
 import style from "./profile.module.css";
 import Post from "../_component/Post";
 import BackButton from "../_component/BackButton";
+import { usePathname } from "next/navigation";
 
 type Props = {};
 
 const ProfilePage = (props: Props) => {
-  const user = {
-    id: "thwogjs98",
-    nickname: "소재헌",
-    image: "/5Udwvqim.jpg",
-  };
+  const pathname = usePathname();
+
+  const user =
+    pathname === "/thwogjs98"
+      ? {
+          id: "thwogjs98",
+          nickname: "소재헌",
+          image: "/5Udwvqim.jpg",
+        }
+      : {
+          id: "elonmusk",
+          nickname: "Elon Musk",
+          image: "/yRsRRjGO.jpg",
+        };
 
   return (
     <main className={style.main}>
