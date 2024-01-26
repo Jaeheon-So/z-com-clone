@@ -36,8 +36,8 @@ const NavMenu = () => {
     {
       id: "menu3",
       name: "쪽지",
-      path: "/message",
-      segment: ["message"],
+      path: "/messages",
+      segment: ["messages"],
       svg: <MessageSvg active={false} />,
       activeSvg: <MessageSvg active={true} />,
     },
