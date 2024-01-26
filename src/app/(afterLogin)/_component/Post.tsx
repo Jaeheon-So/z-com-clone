@@ -25,17 +25,17 @@ const Post = ({ noImage }: Props) => {
     },
     content: "클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ",
     createdAt: new Date(),
-    Images: [] as any[],
+    Images:
+      Math.random() < 0.5 && !noImage
+        ? [
+            { imageId: 1, link: "/zLogo.png" },
+            { imageId: 2, link: "/favicon.png" },
+            { imageId: 3, link: "/yRsRRjGO.jpg" },
+            { imageId: 4, link: "/5Udwvqim.jpg" },
+          ]
+        : [],
   };
 
-  if (Math.random() < 0.5 && !noImage) {
-    target.Images.push(
-      { imageId: 1, link: "/zLogo.png" },
-      { imageId: 2, link: "/favicon.png" },
-      { imageId: 3, link: "/yRsRRjGO.jpg" },
-      { imageId: 4, link: "/5Udwvqim.jpg" }
-    );
-  }
   const index = Math.floor(Math.random() * 3);
 
   return (

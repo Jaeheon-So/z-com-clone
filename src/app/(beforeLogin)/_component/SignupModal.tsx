@@ -1,7 +1,7 @@
 "use client";
 
 import style from "@/app/(beforeLogin)/_component/signup.module.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import CloseSvg from "../_svg/CloseSvg";
 
@@ -13,6 +13,11 @@ export default function SignupModal() {
   const [image, setImage] = useState("");
   const [imageFile, setImageFile] = useState<File>();
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
+  if (pathname !== "/i/flow/signup") {
+    return null;
+  }
 
   const onClickClose = () => {
     router.back();
@@ -41,28 +46,28 @@ export default function SignupModal() {
     e.target.files && setImageFile(e.target.files[0]);
   };
 
-  const onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    fetch("http://localhost:9090/api/users", {
-      method: "post",
-      body: JSON.stringify({
-        id,
-        nickname,
-        image,
-        password,
-      }),
-      credentials: "include",
-    })
-      .then((response: Response) => {
-        console.log(response.status);
-        if (response.status === 200) {
-          router.replace("/home");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  // const onSubmit: FormEventHandler = (e) => {
+  //   e.preventDefault();
+  //   fetch("http://localhost:9090/api/users", {
+  //     method: "post",
+  //     body: JSON.stringify({
+  //       id,
+  //       nickname,
+  //       image,
+  //       password,
+  //     }),
+  //     credentials: "include",
+  //   })
+  //     .then((response: Response) => {
+  //       console.log(response.status);
+  //       if (response.status === 200) {
+  //         router.replace("/home");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
   return (
     <>

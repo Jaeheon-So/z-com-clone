@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import style from "./composeTweet.module.css";
 import { useRef, useState } from "react";
 import CloseSvg from "@/app/(beforeLogin)/_svg/CloseSvg";
@@ -11,6 +11,11 @@ const ComposeTweetModal = () => {
   const [content, setContent] = useState();
   const imageRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
+  if (pathname !== "/compose/tweet") {
+    return null;
+  }
 
   const onSubmit = () => {};
 
@@ -47,10 +52,7 @@ const ComposeTweetModal = () => {
         <form className={style.modalForm} onSubmit={onSubmit}>
           <div className={style.modalBody}>
             <div className={style.postUserSection}>
-              <div
-                className={style.postUserImage}
-                // onClick={() => router.push("/explore")}
-              >
+              <div className={style.postUserImage}>
                 <img src={me.image} alt={me.id} />
               </div>
             </div>

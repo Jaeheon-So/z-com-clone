@@ -1,11 +1,18 @@
+"use client";
+
 import Post from "@/app/(afterLogin)/_component/Post";
 import style from "./photoModal.module.css";
 import CommentForm from "@/app/(afterLogin)/[username]/status/[id]/_component/CommentForm";
 import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
-import { faker } from "@faker-js/faker";
 import PhotoModalCloseButton from "./_component/PhotoModalCloseButton";
+import { usePathname } from "next/navigation";
 
 const PhotoModalPage = () => {
+  const pathname = usePathname();
+  if (!pathname.includes("/photo/")) {
+    return null;
+  }
+
   const photo = {
     imageId: 1,
     link: "/zlogo.png",

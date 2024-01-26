@@ -1,7 +1,7 @@
 "use client";
 
 import style from "@/app/(beforeLogin)/_component/login.module.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import CloseSvg from "../_svg/CloseSvg";
 
@@ -11,6 +11,11 @@ const LoginModal = () => {
   const [password, setPassword] = useState();
   const [message, setMessage] = useState();
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
+  if (pathname !== "/i/flow/login") {
+    return null;
+  }
 
   const onSubmit = () => {};
 
