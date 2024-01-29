@@ -10,9 +10,16 @@
 }
 
 .navPill > div {
-  margin-left: 20px;
-  margin-right: 16px;
-  font-size: 20px;
+  display: none;
+}
+
+@media all and (min-width: 1300px) {
+  .navPill > div {
+    margin-left: 20px;
+    margin-right: 16px;
+    font-size: 20px;
+    display: inline-block;
+  }
 }
 
 .postButton {
@@ -20,17 +27,38 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 52px;
   box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 28px;
   background-color: rgb(29, 155, 240);
-  width: 234px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   border: none;
   color: rgb(255, 255, 255);
   font-weight: 700;
   font-size: 17px;
-  border-radius: 26px;
 }
-
 .postButton:hover {
   background-color: rgb(26, 140, 216);
+}
+.postButton span {
+  display: none;
+}
+.postButton svg {
+  display: inline-block;
+  fill: white;
+  width: 24px;
+}
+
+@media all and (min-width: 1300px) {
+  .postButton {
+    height: 52px;
+    width: 234px;
+    border-radius: 26px;
+  }
+  .postButton span {
+    display: inline-block;
+  }
+  .postButton svg {
+    display: none;
+  }
 }

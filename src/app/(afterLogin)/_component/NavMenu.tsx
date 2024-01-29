@@ -7,6 +7,7 @@ import HomeSvg from "../_svg/HomeSvg";
 import ExploreSvg from "../_svg/ExploreSvg";
 import MessageSvg from "../_svg/MessageSvg";
 import ProfileSvg from "../_svg/ProfileSvg";
+import PostSvg from "../_svg/PostSvg";
 
 const NavMenu = () => {
   const segment = useSelectedLayoutSegment();
@@ -99,7 +100,8 @@ const NavMenu = () => {
         )}
       </ul>
       <Link href="/compose/tweet" className={style.postButton}>
-        게시하기
+        <span>게시하기</span>
+        <PostSvg />
       </Link>
     </nav>
   );
