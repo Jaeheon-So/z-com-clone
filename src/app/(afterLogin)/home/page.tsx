@@ -8,7 +8,6 @@ import Post from "../_component/Post";
 const HomePage = () => {
   return (
     <div className={styles.main}>
-      HomePage
       <TabProvider>
         <Tab />
         <PostForm />
