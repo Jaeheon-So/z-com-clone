@@ -55,14 +55,6 @@ const Post = ({ noImage }: Props) => {
           </div>
           <div>{target.content}</div>
           <div className={style.postImageSection}>
-            {/* {target.Images.length > 0 ? (
-              <Link
-                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[index].imageId}`}
-                className={style.postImageSection}
-              >
-                <img src={target.Images[index].link} alt="img" />
-              </Link>
-            ) : null} */}
             <PostImages post={target} />
           </div>
           <ActionButtons />
