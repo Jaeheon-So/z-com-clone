@@ -2,48 +2,47 @@
 
 import style from "@/app/(beforeLogin)/_component/signup.module.css";
 import { usePathname, useRouter } from "next/navigation";
-import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
-import CloseSvg from "../_svg/CloseSvg";
+import { useRef } from "react";
+import BackButton from "./BackButton";
+import { onSubmit } from "../_lib/signup";
+import { useFormState, useFormStatus } from "react-dom";
 
-export default function SignupModal() {
+function showMessage(messasge: string) {
+  if (messasge === "no_id") {
+    return "아이디를 입력하세요.";
+  }
+  if (messasge === "no_name") {
+    return "닉네임을 입력하세요.";
+  }
+  if (messasge === "no_password") {
+    return "비밀번호를 입력하세요.";
+  }
+  if (messasge === "no_image") {
+    return "이미지를 업로드하세요.";
+  }
+  if (messasge === "user_exists") {
+    return "이미 사용 중인 아이디입니다.";
+  }
+  return messasge;
+}
+
+const SignupModal = () => {
   const router = useRouter();
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [image, setImage] = useState("");
-  const [imageFile, setImageFile] = useState<File>();
   const modalRef = useRef<HTMLDivElement>(null);
+  const [state, formAction] = useFormState(onSubmit, {
+    message: "",
+  });
+  const { pending } = useFormStatus();
 
   const pathname = usePathname();
   if (pathname !== "/i/flow/signup") {
     return null;
   }
 
-  const onClickClose = () => {
-    router.back();
-    // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
-  };
-
   const modalOutSideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current === e.target) {
       router.back();
     }
-  };
-
-  const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setId(e.target.value);
-  };
-
-  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setNickname(e.target.value);
-  };
-
-  const onChangeImageFile: ChangeEventHandler<HTMLInputElement> = (e) => {
-    e.target.files && setImageFile(e.target.files[0]);
   };
 
   // const onSubmit: FormEventHandler = (e) => {
@@ -78,12 +77,10 @@ export default function SignupModal() {
       >
         <div className={style.modal}>
           <div className={style.modalHeader}>
-            <button className={style.closeButton} onClick={onClickClose}>
-              <CloseSvg />
-            </button>
+            <BackButton />
             <div>계정을 생성하세요.</div>
           </div>
-          <form>
+          <form action={formAction}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">
@@ -91,11 +88,11 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="id"
+                  name="id"
                   className={style.input}
                   type="text"
                   placeholder=""
-                  value={id}
-                  onChange={onChangeId}
+                  required
                 />
               </div>
               <div className={style.inputDiv}>
@@ -104,11 +101,11 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   className={style.input}
                   type="text"
                   placeholder=""
-                  value={nickname}
-                  onChange={onChangeNickname}
+                  required
                 />
               </div>
               <div className={style.inputDiv}>
@@ -117,11 +114,11 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="password"
+                  name="password"
                   className={style.input}
                   type="password"
                   placeholder=""
-                  value={password}
-                  onChange={onChangePassword}
+                  required
                 />
               </div>
               <div className={style.inputDiv}>
@@ -133,21 +130,31 @@ export default function SignupModal() {
                 </label>
                 <input
                   id="image"
+                  name="image"
                   className={style.input}
                   type="file"
                   accept="image/*"
-                  onChange={onChangeImageFile}
+                  required
                 />
               </div>
             </div>
             <div className={style.modalFooter}>
-              <button className={style.actionButton} disabled>
+              <button
+                type="submit"
+                className={style.actionButton}
+                disabled={pending}
+              >
                 가입하기
               </button>
+              <div className={style.error}>
+                {showMessage(state?.message || "")}
+              </div>
             </div>
           </form>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default SignupModal;
