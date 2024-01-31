@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <MSWComponent /> */}
+        <MSWComponent />
         <AuthSession>{children}</AuthSession>
       </body>
     </html>
