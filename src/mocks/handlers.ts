@@ -1,13 +1,14 @@
 import { http, HttpResponse, StrictResponse } from "msw";
 
 export const handlers = [
-  http.post("/api/login", ({ request }) => {
-    console.log("로그인");
+  http.post("/api/login", async ({ request }) => {
+    const info: any = await request.json();
+    console.log("로그인", info);
     return HttpResponse.json(
       {
         userId: 1,
         nickname: "소재헌",
-        id: "thwogjs98",
+        id: info.id,
         image: "5Udwvqim.jpg",
       },
       {
