@@ -2,9 +2,16 @@
 
 import React from "react";
 import style from "./followRecommend.module.css";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const FollowRecommend = () => {
-  const onFollow = () => {};
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  const onFollow = () => {
+    if (!session?.user) router.push("/");
+  };
 
   const user = {
     id: "elonmusk",

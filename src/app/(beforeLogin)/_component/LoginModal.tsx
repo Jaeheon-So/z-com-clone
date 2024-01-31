@@ -2,14 +2,15 @@
 
 import style from "@/app/(beforeLogin)/_component/login.module.css";
 import { usePathname, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import CloseSvg from "../_svg/CloseSvg";
+import { signIn } from "next-auth/react";
 
 const LoginModal = () => {
   const router = useRouter();
-  const [id, setId] = useState();
-  const [password, setPassword] = useState();
-  const [message, setMessage] = useState();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const modalRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
@@ -17,7 +18,23 @@ const LoginModal = () => {
     return null;
   }
 
-  const onSubmit = () => {};
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const a = await signIn("credentials", {
+        username: id,
+        password,
+        redirect: false,
+      });
+      console.log(a, "2");
+      router.replace("/home");
+    } catch (error) {
+      console.log(error);
+      setMessage("아이디와 패스워드가 일치하지 않습니다.");
+    }
+  };
 
   const onClickClose = () => {
     router.back();
@@ -29,9 +46,13 @@ const LoginModal = () => {
     }
   };
 
-  const onChangeId = () => {};
+  const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
+  };
 
-  const onChangePassword = () => {};
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <div
@@ -77,7 +98,7 @@ const LoginModal = () => {
           </div>
           <div className={style.message}>{message}</div>
           <div className={style.modalFooter}>
-            <button className={style.actionButton} disabled={!id && !password}>
+            <button className={style.actionButton} disabled={!id || !password}>
               로그인하기
             </button>
           </div>

@@ -8,44 +8,49 @@ import LogoutButton from "./_component/LogoutButton";
 import TrendSection from "./_component/TrendSection";
 import FollowRecommend from "./_component/FollowRecommend";
 import RightSearchForm from "./_component/RightSearchForm";
+import { auth } from "@/auth";
 
 type Props = {
   children: ReactNode;
   modal: ReactNode;
 };
 
-const AfterLoginLayout = ({ children, modal }: Props) => (
-  <div className={style.container}>
-    <header className={style.leftSectionWrapper}>
-      <section className={style.leftSection}>
-        <div className={style.leftSectionFixed}>
-          <Link className={style.logo} href="/home">
-            <div className={style.logoPill}>
-              <Image src={zLogo} alt="logo" width={40} height={40} />
-            </div>
-          </Link>
-          <NavMenu />
-          <LogoutButton />
-        </div>
-      </section>
-    </header>
-    <div className={style.rightSectionWrapper}>
-      <div className={style.rightSectionInner}>
-        <main className={style.main}>{children}</main>
-        <section className={style.rightSection}>
-          <RightSearchForm />
-          <TrendSection />
-          <div className={style.followRecommend}>
-            <h3>팔로우 추천</h3>
-            <FollowRecommend />
-            <FollowRecommend />
-            <FollowRecommend />
+const AfterLoginLayout = async ({ children, modal }: Props) => {
+  const session = await auth();
+
+  return (
+    <div className={style.container}>
+      <header className={style.leftSectionWrapper}>
+        <section className={style.leftSection}>
+          <div className={style.leftSectionFixed}>
+            <Link className={style.logo} href={session?.user ? "/home" : "/"}>
+              <div className={style.logoPill}>
+                <Image src={zLogo} alt="logo" width={40} height={40} />
+              </div>
+            </Link>
+            {session?.user && <NavMenu />}
+            <LogoutButton />
           </div>
         </section>
+      </header>
+      <div className={style.rightSectionWrapper}>
+        <div className={style.rightSectionInner}>
+          <main className={style.main}>{children}</main>
+          <section className={style.rightSection}>
+            <RightSearchForm />
+            <TrendSection />
+            <div className={style.followRecommend}>
+              <h3>팔로우 추천</h3>
+              <FollowRecommend />
+              <FollowRecommend />
+              <FollowRecommend />
+            </div>
+          </section>
+        </div>
       </div>
+      {modal}
     </div>
-    {modal}
-  </div>
-);
+  );
+};
 
 export default AfterLoginLayout;

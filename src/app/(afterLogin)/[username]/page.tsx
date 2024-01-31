@@ -1,28 +1,24 @@
-"use client"; // 잠시 편의상 클라이언트로
-
 import React from "react";
 import style from "./profile.module.css";
 import Post from "../_component/Post";
 import BackButton from "../_component/BackButton";
-import { usePathname } from "next/navigation";
+import { auth } from "@/auth";
 
 type Props = {};
 
-const ProfilePage = (props: Props) => {
-  const pathname = usePathname();
-
-  const user =
-    pathname === "/thwogjs98"
-      ? {
-          id: "thwogjs98",
-          nickname: "소재헌",
-          image: "/5Udwvqim.jpg",
-        }
-      : {
-          id: "elonmusk",
-          nickname: "Elon Musk",
-          image: "/yRsRRjGO.jpg",
-        };
+const ProfilePage = async (props: Props) => {
+  const session = await auth();
+  const user = session?.user
+    ? {
+        id: "thwogjs98",
+        nickname: "소재헌",
+        image: "/5Udwvqim.jpg",
+      }
+    : {
+        id: "elonmusk",
+        nickname: "Elon Musk",
+        image: "/yRsRRjGO.jpg",
+      };
 
   return (
     <main className={style.main}>

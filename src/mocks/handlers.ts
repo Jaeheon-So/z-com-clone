@@ -1,7 +1,8 @@
 import { http, HttpResponse, StrictResponse } from "msw";
 
 export const handlers = [
-  http.post("/api/login", () => {
+  http.post("/api/login", ({ request }) => {
+    console.log("로그인");
     return HttpResponse.json(
       {
         userId: 1,

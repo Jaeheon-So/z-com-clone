@@ -1,5 +1,6 @@
 "use server";
 
+import { signIn } from "@/auth";
 import axios from "axios";
 import { redirect } from "next/navigation";
 
@@ -36,7 +37,14 @@ export const onSubmit = async (prevState: any, formData: FormData) => {
       return { message: "user_exists" };
     }
 
-    if (response.status === 200) shouldRedirect = true;
+    if (response.status === 200) {
+      shouldRedirect = true;
+      await signIn("credentials", {
+        username: formData.get("id"),
+        password: formData.get("password"),
+        redirect: false,
+      });
+    }
   } catch (error: any) {
     console.log("여기는 catch", error.response);
 
