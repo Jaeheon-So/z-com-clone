@@ -9,3 +9,5 @@
 - 반응형 추가
 - 회원가입, 로그인 유효성 검사 에러 핸들링 추가(zod, yup, hookform 사용 가능)
 - 회원가입, 로그인 후 뒤로가기 문제 해결허기
+- axios vs fetch
+- username Post 컴포넌트 에러 해결하기

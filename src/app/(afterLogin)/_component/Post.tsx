@@ -6,31 +6,18 @@ import "dayjs/locale/ko";
 import ActionButtons from "./ActionButtons";
 import PostArticle from "./PostArticle";
 import PostImages from "./PostImages";
+import { Post } from "@/model/Post";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 type Props = {
+  post: Post;
   noImage?: boolean;
 };
 
-const Post = ({ noImage }: Props) => {
-  const target = {
-    postId: 1,
-    User: {
-      id: "elonmusk",
-      nickname: "Elon Musk",
-      image: "/yRsRRjGO.jpg",
-    },
-    content: "클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ",
-    createdAt: new Date(),
-    Images: [
-      { imageId: 1, link: "/zlogo.png" },
-      { imageId: 2, link: "/favicon.png" },
-      { imageId: 3, link: "/yRsRRjGO.jpg" },
-      { imageId: 4, link: "/5Udwvqim.jpg" },
-    ],
-  };
+const Post = ({ noImage, post }: Props) => {
+  const target = post;
 
   return (
     <PostArticle post={target}>
