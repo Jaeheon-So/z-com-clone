@@ -4,6 +4,7 @@ import Post from "../_component/Post";
 import BackButton from "../_component/BackButton";
 import SearchForm from "../_component/SearchForm";
 import Tab from "./_component/Tab";
+import SearchResult from "./_component/SearchResult";
 
 type Props = {
   searchParams: { q: string; f?: string; pf?: string };
@@ -24,6 +25,7 @@ const SearchPage = ({ searchParams }: Props) => {
         <Tab />
       </div>
       <div className={style.list}>
+        {/* <Post />
         <Post />
         <Post />
         <Post />
@@ -33,9 +35,8 @@ const SearchPage = ({ searchParams }: Props) => {
         <Post />
         <Post />
         <Post />
-        <Post />
-        <Post />
-        {/*<SearchResult searchParams={searchParams} />*/}
+        <Post /> */}
+        <SearchResult searchParams={searchParams} />
       </div>
     </main>
   );
