@@ -252,11 +252,19 @@ export const handlers = [
       },
     ]);
   }),
-  http.get("/api/users/:userId", ({ request, params }) => {
+  http.get("/api/users/:userId", ({ request, params }): StrictResponse<any> => {
     console.log("유저 정보");
-    const { userId } = params;
+    const found = User.find((v) => v.id === params.userId);
 
-    return HttpResponse.json(User[1]);
+    if (found) {
+      return HttpResponse.json(found);
+    }
+    return HttpResponse.json(
+      { message: "no_such_user" },
+      {
+        status: 404,
+      }
+    );
   }),
   http.get("/api/posts/:postId", ({ request, params }) => {
     const { postId } = params;
