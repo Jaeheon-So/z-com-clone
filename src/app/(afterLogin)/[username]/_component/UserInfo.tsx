@@ -5,12 +5,14 @@ import BackButton from "../../_component/BackButton";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@/model/User";
 import { getUser } from "../_lib/getUser";
+import { useSession } from "next-auth/react";
 
 type Props = {
   username: string;
 };
 
 const UserInfo = ({ username }: Props) => {
+  const { data: session } = useSession();
   const { data: user, error } = useQuery<
     User,
     Object,
@@ -70,7 +72,9 @@ const UserInfo = ({ username }: Props) => {
           <div>{user.nickname}</div>
           <div>@{user.id}</div>
         </div>
-        <button className={style.followButton}>팔로우</button>
+        {session?.user?.email !== user.id && (
+          <button className={style.followButton}>팔로우</button>
+        )}
       </div>
     </>
   );
