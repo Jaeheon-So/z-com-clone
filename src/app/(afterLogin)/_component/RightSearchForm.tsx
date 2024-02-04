@@ -4,15 +4,25 @@ import React from "react";
 import SearchSvg from "../_svg/SearchSvg";
 // import style from "@/app/(afterLogin)/layout.module.css";
 import style from "./rightSearchForm.module.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SearchForm from "./SearchForm";
 
 const RightSearchForm = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const onChangeFollow = () => {};
+  const onChangeAll = () => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("pf");
+    router.push(`/search?${newSearchParams.toString()}`);
+  };
 
-  const onChangeAll = () => {};
+  const onChangeFollow = () => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("pf", "on");
+    router.push(`/search?${newSearchParams.toString()}`);
+  };
 
   if (pathname === "/explore") {
     return null;

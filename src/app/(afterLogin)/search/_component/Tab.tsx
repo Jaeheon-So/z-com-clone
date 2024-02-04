@@ -11,12 +11,16 @@ const Tab = () => {
 
   const onClickHot = () => {
     setCurrent("hot");
-    router.replace(`/search?q=${searchParams.get("q") || ""}`);
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("f");
+    router.push(`/search?${newSearchParams.toString()}`);
   };
 
   const onClickNew = () => {
     setCurrent("new");
-    router.replace(`/search?q=${searchParams.get("q") || ""}&f=live`);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set("f", "live");
+    router.push(`/search?${newSearchParams.toString()}`);
   };
 
   return (
