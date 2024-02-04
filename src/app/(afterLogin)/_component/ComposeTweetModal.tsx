@@ -5,8 +5,10 @@ import style from "./composeTweet.module.css";
 import { useRef, useState } from "react";
 import CloseSvg from "@/app/(beforeLogin)/_svg/CloseSvg";
 import UploadSvg from "../_svg/UploadSvg";
+import { useSession } from "next-auth/react";
 
 const ComposeTweetModal = () => {
+  const { data: me } = useSession();
   const router = useRouter();
   const [content, setContent] = useState();
   const imageRef = useRef<HTMLInputElement>(null);
@@ -34,11 +36,6 @@ const ComposeTweetModal = () => {
 
   const onChangeContent = () => {};
 
-  const me = {
-    id: "thwogjs98",
-    image: "/5Udwvqim.jpg",
-  };
-
   return (
     <div
       className={style.modalBackground}
@@ -53,7 +50,7 @@ const ComposeTweetModal = () => {
           <div className={style.modalBody}>
             <div className={style.postUserSection}>
               <div className={style.postUserImage}>
-                <img src={me.image} alt={me.id} />
+                <img src={`/${me?.user?.image!}`} alt={me?.user?.email || ""} />
               </div>
             </div>
             <div className={style.inputDiv}>

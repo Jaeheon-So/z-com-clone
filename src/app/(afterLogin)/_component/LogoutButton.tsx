@@ -26,7 +26,7 @@ const LogoutButton = () => {
   return (
     <button className={style.logOutButton} onClick={onLogout}>
       <div className={style.logOutUserImage}>
-        <img src={me.user?.image!} alt={me.user?.id} />
+        <img src={`/${me?.user?.image!}`} alt={me.user?.email || ""} />
       </div>
       <div className={style.logOutUserName}>
         <div>{me.user?.name}</div>

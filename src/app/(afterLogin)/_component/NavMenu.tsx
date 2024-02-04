@@ -8,14 +8,11 @@ import ExploreSvg from "../_svg/ExploreSvg";
 import MessageSvg from "../_svg/MessageSvg";
 import ProfileSvg from "../_svg/ProfileSvg";
 import PostSvg from "../_svg/PostSvg";
+import { useSession } from "next-auth/react";
 
 const NavMenu = () => {
+  const { data: me } = useSession();
   const segment = useSelectedLayoutSegment();
-
-  const me = {
-    // 임시로 내 정보 있는것처럼
-    id: "thwogjs98",
-  };
 
   const navMenuData = [
     {
@@ -45,8 +42,8 @@ const NavMenu = () => {
     {
       id: "menu4",
       name: "프로필",
-      path: `/${me.id}`,
-      segment: [me.id],
+      path: `/${me?.user?.email}`,
+      segment: [me?.user?.email],
       svg: <ProfileSvg active={false} />,
       activeSvg: <ProfileSvg active={true} />,
     },
@@ -56,8 +53,8 @@ const NavMenu = () => {
     <nav>
       <ul>
         {navMenuData.map((menu) =>
-          menu.path === `/${me.id}` ? (
-            me.id && (
+          menu.path === `/${me?.user?.email}` ? (
+            me?.user?.email && (
               <li key={menu.id}>
                 <Link href={menu.path}>
                   <div className={style.navPill}>
