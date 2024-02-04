@@ -12,7 +12,7 @@ type Props = {
 const Comments = ({ id }: Props) => {
   const queryClient = useQueryClient();
   const post = queryClient.getQueryData(["posts", id]);
-  const { data, error } = useQuery<
+  const { data } = useQuery<
     IPost[],
     Object,
     IPost[],
@@ -22,6 +22,7 @@ const Comments = ({ id }: Props) => {
     queryFn: getComments,
     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
     gcTime: 300 * 1000,
+    enabled: !!post,
   });
 
   if (post) {

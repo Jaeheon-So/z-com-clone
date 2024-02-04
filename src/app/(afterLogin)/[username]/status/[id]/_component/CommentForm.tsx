@@ -3,8 +3,15 @@
 import { useRef, useState } from "react";
 import style from "./commentForm.module.css";
 import UploadSvg from "@/app/(afterLogin)/_svg/UploadSvg";
+import { useQueryClient } from "@tanstack/react-query";
 
-const CommentForm = () => {
+type Props = {
+  id: string;
+};
+
+const CommentForm = ({ id }: Props) => {
+  const queryClient = useQueryClient();
+  const post = queryClient.getQueryData(["posts", id]);
   const [content, setContent] = useState("");
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -18,6 +25,10 @@ const CommentForm = () => {
     id: "thwogjs98",
     image: "/5Udwvqim.jpg",
   };
+
+  if (!post) {
+    return null;
+  }
 
   return (
     <form className={style.postForm} onSubmit={onSubmit}>

@@ -1,8 +1,6 @@
 import style from "./photoModal.module.css";
 import CommentForm from "@/app/(afterLogin)/[username]/status/[id]/_component/CommentForm";
-
 import PhotoModalCloseButton from "./_component/PhotoModalCloseButton";
-// import { usePathname } from "next/navigation";
 import SinglePosts from "@/app/(afterLogin)/[username]/status/[id]/_component/SinglePosts";
 import Comments from "@/app/(afterLogin)/[username]/status/[id]/_component/Comments";
 import {
@@ -13,17 +11,13 @@ import {
 import { getSinglePost } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePost";
 import { getComments } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments";
 import ImageZone from "./_component/ImageZone";
+import PhotoModal from "./_component/PhotoModal";
 
 type Props = {
   params: { id: string };
 };
 
 const PhotoModalPage = async ({ params }: Props) => {
-  // const pathname = usePathname();
-  // if (!pathname.includes("/photo/")) {
-  //   return null;
-  // }
-
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["posts", params.id],
@@ -36,7 +30,7 @@ const PhotoModalPage = async ({ params }: Props) => {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <div className={style.container}>
+    <PhotoModal>
       <HydrationBoundary state={dehydratedState}>
         <PhotoModalCloseButton />
         <ImageZone id={params.id} />
@@ -46,7 +40,7 @@ const PhotoModalPage = async ({ params }: Props) => {
           <Comments id={params.id} />
         </div>
       </HydrationBoundary>
-    </div>
+    </PhotoModal>
   );
 };
 

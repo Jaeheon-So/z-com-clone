@@ -266,8 +266,17 @@ export const handlers = [
       }
     );
   }),
-  http.get("/api/posts/:postId", ({ request, params }) => {
+  http.get("/api/posts/:postId", ({ request, params }): StrictResponse<any> => {
     const { postId } = params;
+
+    if (parseInt(postId as string) > 10) {
+      return HttpResponse.json(
+        { message: "no_such_post" },
+        {
+          status: 404,
+        }
+      );
+    }
 
     return HttpResponse.json({
       postId,
@@ -284,6 +293,7 @@ export const handlers = [
   http.get("/api/posts/:postId/comments", ({ request, params }) => {
     console.log("게시글 답글");
     const { postId } = params;
+
     return HttpResponse.json([
       {
         postId: 1,

@@ -12,3 +12,4 @@
 - axios vs fetch
 - username Post 컴포넌트 에러 해결하기
 - 로그인 유무에 따라 보여지는 컴포넌트 잘 구분하기
+- fetch next tag cache 할지 유무 정하기

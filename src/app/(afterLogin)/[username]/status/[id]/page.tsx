@@ -36,7 +36,7 @@ const SinglePostPage = async ({ params }: Props) => {
         </div>
         <div className={style.marginTop}></div>
         <SinglePosts id={params.id} />
-        <CommentForm />
+        <CommentForm id={params.id} />
         <div>
           <Comments id={params.id} />
         </div>
