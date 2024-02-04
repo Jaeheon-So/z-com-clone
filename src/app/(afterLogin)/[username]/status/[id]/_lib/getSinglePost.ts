@@ -13,7 +13,6 @@ export const getSinglePost: QueryFunction<
       next: {
         tags: ["posts", id],
       },
-      cache: "no-store",
     }
   );
 
