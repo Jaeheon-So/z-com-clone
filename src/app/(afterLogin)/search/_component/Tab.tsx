@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "../search.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -22,6 +22,10 @@ const Tab = () => {
     newSearchParams.set("f", "live");
     router.push(`/search?${newSearchParams.toString()}`);
   };
+
+  useEffect(() => {
+    if (!searchParams.get("f")) setCurrent("hot");
+  }, [searchParams]);
 
   return (
     <div className={style.homeFixed}>

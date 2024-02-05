@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchSvg from "../_svg/SearchSvg";
 // import style from "@/app/(afterLogin)/layout.module.css";
 import style from "./rightSearchForm.module.css";
@@ -11,18 +11,25 @@ const RightSearchForm = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [filter, setFilter] = useState("all");
 
-  const onChangeAll = () => {
+  const onChangeAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchParams = new URLSearchParams(searchParams);
+    setFilter("all");
     newSearchParams.delete("pf");
     router.push(`/search?${newSearchParams.toString()}`);
   };
 
-  const onChangeFollow = () => {
+  const onChangeFollow = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearchParams = new URLSearchParams(searchParams);
+    setFilter("fol");
     newSearchParams.set("pf", "on");
     router.push(`/search?${newSearchParams.toString()}`);
   };
+
+  useEffect(() => {
+    if (!searchParams.get("pf")) setFilter("all");
+  }, [searchParams]);
 
   if (pathname === "/explore") {
     return null;
@@ -40,7 +47,8 @@ const RightSearchForm = () => {
               <input
                 type="radio"
                 name="pf"
-                defaultChecked
+                value="all"
+                checked={filter === "all"}
                 onChange={onChangeAll}
               />
             </div>
@@ -49,7 +57,8 @@ const RightSearchForm = () => {
               <input
                 type="radio"
                 name="pf"
-                value="on"
+                value="fol"
+                checked={filter === "fol"}
                 onChange={onChangeFollow}
               />
             </div>

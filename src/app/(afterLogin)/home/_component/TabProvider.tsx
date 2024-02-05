@@ -4,7 +4,7 @@ import React, { ReactNode, createContext, useState } from "react";
 
 export type TabContextValueType = {
   tab: string;
-  setTab: (value: "rec" | "fol") => void;
+  setTab: (value: string) => void;
 };
 
 export const TabContext = createContext<TabContextValueType | null>(null);
