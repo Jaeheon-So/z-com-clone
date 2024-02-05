@@ -52,49 +52,26 @@ const NavMenu = () => {
   return (
     <nav>
       <ul>
-        {navMenuData.map((menu) =>
-          menu.path === `/${me?.user?.email}` ? (
-            me?.user?.email && (
-              <li key={menu.id}>
-                <Link href={menu.path}>
-                  <div className={style.navPill}>
-                    {menu.segment.includes(segment as string)
-                      ? menu.activeSvg
-                      : menu.svg}
-                    <div
-                      style={
-                        menu.segment.includes(segment as string)
-                          ? { fontWeight: "bold" }
-                          : {}
-                      }
-                    >
-                      {menu.name}
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            )
-          ) : (
-            <li key={menu.id}>
-              <Link href={menu.path}>
-                <div className={style.navPill}>
-                  {menu.segment.includes(segment as string)
-                    ? menu.activeSvg
-                    : menu.svg}
-                  <div
-                    style={
-                      menu.segment.includes(segment as string)
-                        ? { fontWeight: "bold" }
-                        : {}
-                    }
-                  >
-                    {menu.name}
-                  </div>
+        {navMenuData.map((menu) => (
+          <li key={menu.id}>
+            <Link href={menu.path}>
+              <div className={style.navPill}>
+                {menu.segment.includes(segment as string)
+                  ? menu.activeSvg
+                  : menu.svg}
+                <div
+                  style={
+                    menu.segment.includes(segment as string)
+                      ? { fontWeight: "bold" }
+                      : {}
+                  }
+                >
+                  {menu.name}
                 </div>
-              </Link>
-            </li>
-          )
-        )}
+              </div>
+            </Link>
+          </li>
+        ))}
       </ul>
       <Link href="/compose/tweet" className={style.postButton}>
         <span>게시하기</span>

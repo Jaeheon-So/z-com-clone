@@ -17,3 +17,4 @@
 - Suspense 필요한 곳 적용하기
 - QueryErrorResetBoundary 컴포넌트화
 - height: 200dvh 없애기
+- username 페이지 suspense, infinity 적용하기
