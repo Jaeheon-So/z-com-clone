@@ -24,7 +24,6 @@ const Tab = () => {
   };
 
   useEffect(() => {
-    console.log("hi");
     if (!searchParams.get("f")) setCurrent("hot");
     else setCurrent("new");
   }, [searchParams]);
