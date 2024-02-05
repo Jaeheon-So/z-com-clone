@@ -341,12 +341,17 @@ export const handlers = [
       },
     ]);
   }),
-  http.get("/api/followRecommends", ({ request }) => {
+  http.get("/api/followRecommends", async ({ request }) => {
     console.log("팔로우 추천");
+    await delay(3000);
     return HttpResponse.json(User);
   }),
-  http.get("/api/trends", ({ request }) => {
+  http.get("/api/trends", async ({ request }) => {
     console.log("트렌드");
+    await delay(3000);
+    // return HttpResponse.text(JSON.stringify("user_exists"), {
+    //   status: 403,
+    // });
     return HttpResponse.json([
       { tagId: 1, title: "제로초", count: 1264 },
       { tagId: 2, title: "원초", count: 1264 },
