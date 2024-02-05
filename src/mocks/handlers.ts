@@ -16,6 +16,11 @@ const User = [
   { id: "thwogjs98", nickname: "소재헌", image: faker.image.avatar() },
 ];
 
+const delay = (ms: number) =>
+  new Promise((res) => {
+    setTimeout(res, ms);
+  });
+
 export const handlers = [
   http.post("/api/login", async ({ request }) => {
     const info: any = await request.json();
@@ -57,7 +62,7 @@ export const handlers = [
     console.log("PostRecommends");
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get("cursor") as string) || 0;
-
+    await delay(3000);
     return HttpResponse.json([
       {
         postId: cursor + 1,
@@ -110,6 +115,7 @@ export const handlers = [
   }),
   http.get("/api/followingPosts", async ({ request }) => {
     console.log("following posts");
+    await delay(3000);
     return HttpResponse.json([
       {
         postId: 1,
