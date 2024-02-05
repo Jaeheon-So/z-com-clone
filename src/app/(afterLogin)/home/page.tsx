@@ -8,15 +8,15 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import PostRecommends from "./_component/PostRecommends";
 import { getPostRecommends } from "./_lib/getPostRecomends";
 import TabDecider from "./_component/TabDecider";
 
 const HomePage = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: ["posts", "recommends"],
     queryFn: getPostRecommends,
+    initialPageParam: 0,
   });
   const dehydratedState = dehydrate(queryClient);
 

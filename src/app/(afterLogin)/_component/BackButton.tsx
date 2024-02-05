@@ -1,4 +1,4 @@
-"use clent";
+"use client";
 
 import style from "@/app/(afterLogin)/[username]/profile.module.css";
 import BackSvg from "../_svg/BackSvg";
