@@ -172,7 +172,7 @@ export const handlers = [
   http.get("/api/search/:tag", async ({ request, params }) => {
     console.log("search result");
     const { tag } = params;
-
+    await delay(3000);
     return HttpResponse.json([
       {
         postId: 1,
