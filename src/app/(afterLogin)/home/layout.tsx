@@ -7,7 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
-const layout = ({ children }: Props) => {
+const HomeLayout = ({ children }: Props) => {
   return (
     <TabProvider>
       <Tab />
@@ -17,4 +17,4 @@ const layout = ({ children }: Props) => {
   );
 };
 
-export default layout;
+export default HomeLayout;

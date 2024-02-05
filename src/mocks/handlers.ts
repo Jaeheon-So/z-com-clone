@@ -116,6 +116,9 @@ export const handlers = [
   http.get("/api/followingPosts", async ({ request }) => {
     console.log("following posts");
     await delay(3000);
+    // return HttpResponse.text(JSON.stringify("user_exists"), {
+    //   status: 403,
+    // });
     return HttpResponse.json([
       {
         postId: 1,

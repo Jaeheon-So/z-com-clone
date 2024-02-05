@@ -16,7 +16,7 @@ export default function Error({
 
   return (
     <div>
-      <h2>게시물 불러오기 실패</h2>
+      <h2>트랜드 불러오기 실패</h2>
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment
