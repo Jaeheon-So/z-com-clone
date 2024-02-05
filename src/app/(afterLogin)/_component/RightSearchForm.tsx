@@ -29,6 +29,7 @@ const RightSearchForm = () => {
 
   useEffect(() => {
     if (!searchParams.get("pf")) setFilter("all");
+    else setFilter("fol");
   }, [searchParams]);
 
   if (pathname === "/explore") {
