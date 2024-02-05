@@ -40,7 +40,7 @@ const AfterLoginLayout = async ({ children, modal }: Props) => {
             <main className={style.main}>{children}</main>
             <section className={style.rightSection}>
               <RightSearchForm />
-              <TrendSectionBg />
+              {session?.user && <TrendSectionBg />}
               <div className={style.followRecommend}>
                 <FollowRecommendWrapper />
               </div>

@@ -223,9 +223,11 @@ export const handlers = [
       },
     ]);
   }),
-  http.get("/api/users/:userId/posts", ({ request, params }) => {
+  http.get("/api/users/:userId/posts", async ({ request, params }) => {
     console.log("유저의 개인 게시글");
     const { userId } = params;
+    await delay(2000);
+
     return HttpResponse.json([
       {
         postId: 1,

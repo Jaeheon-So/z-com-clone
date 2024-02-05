@@ -11,15 +11,7 @@ import { useSession } from "next-auth/react";
 
 const TrendSectionBg = () => {
   const pathname = usePathname();
-  const { data: session } = useSession();
 
-  if (!session?.user) {
-    return (
-      <div className={style.trendBg}>
-        <div className={style.noTrend}>트렌드를 가져올 수 없습니다.</div>
-      </div>
-    );
-  }
   if (pathname === "/explore") {
     return null;
   }
