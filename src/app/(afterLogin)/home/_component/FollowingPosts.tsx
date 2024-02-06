@@ -12,6 +12,10 @@ const FollowingPosts = () => {
     gcTime: 300 * 1000,
   });
 
+  if (data.length === 0) {
+    return <div>팔로우 안함</div>;
+  }
+
   return data?.map((post) => <Post key={post.postId} post={post} />);
 };
 

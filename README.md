@@ -19,3 +19,4 @@
 - height: 200dvh 없애기
 - username 페이지 suspense, infinity 적용하기
 - 회원가입 후 자동로그인 할지말지 confirm 하기
+- error.tsx, 배열 길이 0일때 스타일링 하기
