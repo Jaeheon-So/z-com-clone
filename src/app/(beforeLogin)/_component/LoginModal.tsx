@@ -12,6 +12,8 @@ const LoginModal = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const modalRef = useRef<HTMLDivElement>(null);
+  const idRef = useRef<HTMLInputElement>(null);
+  const pwRef = useRef<HTMLInputElement>(null);
 
   const pathname = usePathname();
   if (pathname !== "/i/flow/login") {
@@ -22,6 +24,18 @@ const LoginModal = () => {
     e.preventDefault();
     setMessage("");
 
+    if (!id.trim()) {
+      idRef.current?.focus();
+      setMessage("아이디를 입력해주세요.");
+      return;
+    }
+
+    if (!password) {
+      pwRef.current?.focus();
+      setMessage("비밀번호를 입력해주세요.");
+      return;
+    }
+
     try {
       const res = await signIn("credentials", {
         username: id,
@@ -29,8 +43,12 @@ const LoginModal = () => {
         redirect: false,
       });
       console.log(res);
-      if (res?.error !== "") {
-        setMessage("아이디 혹은 패스워드가 일치하지 않습니다.");
+      if (res?.error === "CallbackRouteError") {
+        idRef.current?.focus();
+        setMessage("아이디가 존재하지 않습니다.");
+      } else if (res?.error === "CredentialsSignin") {
+        pwRef.current?.focus();
+        setMessage("비밀번호가 일치하지 않습니다.");
       } else {
         alert("로그인 성공");
         router.replace("/home");
@@ -59,6 +77,24 @@ const LoginModal = () => {
     setPassword(e.target.value);
   };
 
+  const setClassName = (label: string, message: string) => {
+    if (label === "id") {
+      if (
+        message === "아이디를 입력해주세요." ||
+        message === "아이디가 존재하지 않습니다."
+      ) {
+        return `${style.inputLabel} ${style.errorLabel}`;
+      } else return style.inputLabel;
+    } else if (label === "pw") {
+      if (
+        message === "비밀번호가 일치하지 않습니다." ||
+        message === "비밀번호를 입력해주세요."
+      ) {
+        return `${style.inputLabel} ${style.errorLabel}`;
+      } else return style.inputLabel;
+    }
+  };
+
   return (
     <div
       className={style.modalBackground}
@@ -75,37 +111,39 @@ const LoginModal = () => {
         <form onSubmit={onSubmit}>
           <div className={style.modalBody}>
             <div className={style.inputDiv}>
-              <label className={style.inputLabel} htmlFor="id">
+              <label className={setClassName("id", message)} htmlFor="id">
                 아이디
               </label>
               <input
                 id="id"
                 className={style.input}
                 value={id}
+                ref={idRef}
                 onChange={onChangeId}
                 type="text"
                 placeholder=""
+                // required
               />
             </div>
             <div className={style.inputDiv}>
-              <label className={style.inputLabel} htmlFor="password">
+              <label className={setClassName("pw", message)} htmlFor="password">
                 비밀번호
               </label>
               <input
                 id="password"
                 className={style.input}
                 value={password}
+                ref={pwRef}
                 onChange={onChangePassword}
                 type="password"
                 placeholder=""
+                // required
               />
             </div>
           </div>
           <div className={style.message}>{message}</div>
           <div className={style.modalFooter}>
-            <button className={style.actionButton} disabled={!id || !password}>
-              로그인하기
-            </button>
+            <button className={style.actionButton}>로그인하기</button>
           </div>
         </form>
       </div>

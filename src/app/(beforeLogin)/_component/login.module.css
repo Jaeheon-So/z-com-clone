@@ -110,3 +110,12 @@
 .closeButton:hover {
   background-color: rgba(15, 20, 25, 0.1);
 }
+.message {
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  font-size: 18px;
+}
+.errorLabel {
+  border: 2px solid rgb(238, 138, 138);
+}
