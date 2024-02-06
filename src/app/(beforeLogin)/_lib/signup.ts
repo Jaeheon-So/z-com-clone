@@ -23,7 +23,7 @@ export const onSubmit = async (prevState: any, formData: FormData) => {
   if (!formData.get("image")) {
     return { message: "no_image" };
   }
-
+  formData.set("nickname", formData.get("name") as string);
   let shouldRedirect = false;
 
   try {
@@ -32,13 +32,16 @@ export const onSubmit = async (prevState: any, formData: FormData) => {
       formData,
       { withCredentials: true }
     );
+    console.log("try signup", response.data, response.status);
 
     if (response.status === 403) {
+      console.log("status 403");
       return { message: "user_exists" };
     }
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       shouldRedirect = true;
+      console.log("status 201");
       await signIn("credentials", {
         username: formData.get("id"),
         password: formData.get("password"),
@@ -48,7 +51,7 @@ export const onSubmit = async (prevState: any, formData: FormData) => {
   } catch (error: any) {
     console.log("여기는 catch", error.response);
 
-    if (error.response?.status === 403) return { message: "user_exists" };
+    if (error.response?.status === 403) return { message: "user_exist" };
     return { message: "서버 에러 발생" };
   }
 

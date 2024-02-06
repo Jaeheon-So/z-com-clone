@@ -3,10 +3,13 @@
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import style from "./postForm.module.css";
 import UploadSvg from "../../_svg/UploadSvg";
-import { useSession } from "next-auth/react";
+import { Session } from "@auth/core/types";
 
-const PostForm = () => {
-  const { data: me } = useSession();
+type Props = {
+  me: Session | null;
+};
+
+const PostForm = ({ me }: Props) => {
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
 
@@ -27,7 +30,7 @@ const PostForm = () => {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={`/${me?.user?.image!}`} alt={me?.user?.email || ""} />
+          <img src={`${me?.user?.image!}`} alt={me?.user?.email || ""} />
         </div>
       </div>
       <div className={style.postInputSection}>

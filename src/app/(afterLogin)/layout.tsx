@@ -30,7 +30,7 @@ const AfterLoginLayout = async ({ children, modal }: Props) => {
               </div>
             </Link>
             {session?.user && <NavMenu />}
-            <LogoutButton />
+            <LogoutButton me={session} />
           </div>
         </section>
       </header>

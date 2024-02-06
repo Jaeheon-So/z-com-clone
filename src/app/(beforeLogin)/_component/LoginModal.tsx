@@ -23,16 +23,21 @@ const LoginModal = () => {
     setMessage("");
 
     try {
-      const a = await signIn("credentials", {
+      const res = await signIn("credentials", {
         username: id,
         password,
         redirect: false,
       });
-      console.log(a, "2");
-      router.replace("/home");
+      console.log(res);
+      if (res?.error !== "") {
+        setMessage("아이디 혹은 패스워드가 일치하지 않습니다.");
+      } else {
+        alert("로그인 성공");
+        router.replace("/home");
+      }
     } catch (error) {
       console.log(error);
-      setMessage("아이디와 패스워드가 일치하지 않습니다.");
+      setMessage("아이디 혹은 패스워드가 일치하지 않습니다.");
     }
   };
 

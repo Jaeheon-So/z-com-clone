@@ -20,7 +20,7 @@ function showMessage(messasge: string) {
   if (messasge === "no_image") {
     return "이미지를 업로드하세요.";
   }
-  if (messasge === "user_exists") {
+  if (messasge === "user_exist") {
     return "이미 사용 중인 아이디입니다.";
   }
   return messasge;
