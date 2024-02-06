@@ -36,7 +36,7 @@ const PhotoModalPage = async ({ params }: Props) => {
         <ImageZone id={params.id} />
         <div className={style.commentZone}>
           <SinglePosts id={params.id} noImage />
-          <CommentForm />
+          <CommentForm id={params.id} />
           <Comments id={params.id} />
         </div>
       </HydrationBoundary>

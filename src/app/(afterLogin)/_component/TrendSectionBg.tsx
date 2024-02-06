@@ -7,7 +7,6 @@ import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import Loading from "./Loading";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 const TrendSectionBg = () => {
   const pathname = usePathname();
