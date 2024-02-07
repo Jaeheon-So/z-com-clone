@@ -14,7 +14,7 @@ const TrendSection = () => {
     gcTime: 300 * 1000,
   });
 
-  return data?.map((trend) => <Trend key={trend.tagId} trend={trend} />);
+  return data?.map((trend, index) => <Trend key={index} trend={trend} />);
 };
 
 export default TrendSection;

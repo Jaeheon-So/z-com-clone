@@ -21,3 +21,4 @@
 - 회원가입 후 자동로그인 할지말지 confirm 하기
 - error.tsx, 배열 길이 0일때 스타일링 하기
 - 추천 게시물, 팔로우 게시물 setQueryData vs invalidateQueries
+- credential 추가 여부 생각하기
