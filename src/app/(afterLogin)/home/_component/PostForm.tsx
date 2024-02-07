@@ -5,6 +5,9 @@ import style from "./postForm.module.css";
 import UploadSvg from "../../_svg/UploadSvg";
 import { Session } from "@auth/core/types";
 import TextareaAutosize from "react-textarea-autosize";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Post } from "@/model/Post";
+import { submitPost } from "../_lib/submitPost";
 
 type Props = {
   me: Session | null;
@@ -14,16 +17,66 @@ const PostForm = ({ me }: Props) => {
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
   const [preview, setPreview] = useState<
-    Array<{ dataUrl: string; file: File } | null>
+    Array<{ dataUrl: string; file: File }>
   >([]);
+  const queryClient = useQueryClient();
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("content", content);
+    preview.forEach((p) => {
+      formData.append("images", p.file);
+    });
+
+    return postFormMutation.mutate(formData);
+  };
+
+  const postFormMutation = useMutation({
+    mutationFn: submitPost,
+    async onSuccess(response) {
+      const newPost = response;
+      setContent("");
+      setPreview([]);
+      if (queryClient.getQueryData(["posts", "recommends"])) {
+        queryClient.setQueryData(
+          ["posts", "recommends"],
+          (prevData: { pages: Post[][] }) => {
+            const shallow = {
+              ...prevData,
+              pages: [...prevData.pages],
+            };
+            shallow.pages[0] = [...shallow.pages[0]];
+            shallow.pages[0].unshift(newPost);
+            return shallow;
+          }
+        );
+      }
+      if (queryClient.getQueryData(["posts", "followings"])) {
+        queryClient.setQueryData(
+          ["posts", "followings"],
+          (prevData: { pages: Post[][] }) => {
+            const shallow = {
+              ...prevData,
+              pages: [...prevData.pages],
+            };
+            shallow.pages[0] = [...shallow.pages[0]];
+            shallow.pages[0].unshift(newPost);
+            return shallow;
+          }
+        );
+      }
+    },
+    onError(error) {
+      console.error(error);
+      alert("업로드 중 에러가 발생했습니다.");
+    },
+  });
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
-  };
-
-  const onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    console.log("dsds");
   };
 
   const onUploadImage: ChangeEventHandler<HTMLInputElement> = (e) => {
