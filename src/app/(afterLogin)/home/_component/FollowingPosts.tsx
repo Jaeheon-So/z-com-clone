@@ -11,8 +11,10 @@ import Post from "../../_component/Post";
 import { Post as IPost } from "@/model/Post";
 import { useInView } from "react-intersection-observer";
 import Loading from "../../_component/Loading";
+import { useSession } from "next-auth/react";
 
 const FollowingPosts = () => {
+  const { data: session } = useSession();
   const { data, fetchNextPage, hasNextPage, isFetching } =
     useSuspenseInfiniteQuery<
       IPost[],
@@ -41,9 +43,11 @@ const FollowingPosts = () => {
 
   return data?.pages.map((page, index) => (
     <Fragment key={index}>
-      {page.map((post) => (
-        <Post key={post.postId} post={post} />
-      ))}
+      {page
+        .filter((post) => post.User.id !== session?.user?.email)
+        .map((post) => (
+          <Post key={post.postId} post={post} />
+        ))}
       <div
         ref={ref}
         style={{
