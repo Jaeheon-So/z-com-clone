@@ -9,9 +9,9 @@ import Loading from "@/app/(afterLogin)/home/loading";
 const HomePage = async () => {
   return (
     <main className={styles.main}>
-      {/* <Suspense fallback={<Loading />}> */}
-      <TabDeciderSuspense />
-      {/* </Suspense> */}
+      <Suspense fallback={<Loading />}>
+        <TabDeciderSuspense />
+      </Suspense>
     </main>
   );
 };

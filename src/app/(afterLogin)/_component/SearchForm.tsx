@@ -19,7 +19,7 @@ const SearchForm = ({ q }: Props) => {
   return (
     <form className={style.search} onSubmit={onSubmit}>
       <SearchSvg />
-      <input type="search" name="search" defaultValue={q || ""} />
+      <input type="search" name="search" value={q} />
     </form>
   );
 };

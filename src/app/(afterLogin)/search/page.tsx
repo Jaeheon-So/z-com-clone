@@ -10,9 +10,10 @@ type Props = {
 const SearchPage = ({ searchParams }: Props) => {
   return (
     <div className={style.list}>
-      {/* <Suspense fallback={<Loading />}> */}
-      <SearchResult searchParams={searchParams} />
-      {/* </Suspense> */}
+      <Suspense fallback={<Loading />}>
+        <SearchResult searchParams={searchParams} />
+      </Suspense>
+      /
     </div>
   );
 };
