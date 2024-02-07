@@ -1,6 +1,10 @@
-export const getFollowingPosts = async () => {
+export const getFollowingPosts = async ({
+  pageParam,
+}: {
+  pageParam: number;
+}) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/followings`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/followings?cursor=${pageParam}`,
     {
       next: {
         tags: ["posts", "followings"],
