@@ -54,6 +54,9 @@ const PostForm = ({ me }: Props) => {
           }
         );
       }
+      // queryClient.invalidateQueries({
+      //   queryKey: ["posts", "recommends"],
+      // });
       if (queryClient.getQueryData(["posts", "followings"])) {
         queryClient.setQueryData(
           ["posts", "followings"],
@@ -68,6 +71,12 @@ const PostForm = ({ me }: Props) => {
           }
         );
       }
+      // queryClient.invalidateQueries({
+      //   queryKey: ["posts", "followings"],
+      // });
+      queryClient.invalidateQueries({
+        queryKey: ["trends"],
+      });
     },
     onError(error) {
       console.error(error);

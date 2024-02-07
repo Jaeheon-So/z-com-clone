@@ -13,7 +13,6 @@ const SearchPage = ({ searchParams }: Props) => {
       <Suspense fallback={<Loading />}>
         <SearchResult searchParams={searchParams} />
       </Suspense>
-      /
     </div>
   );
 };
