@@ -1,10 +1,11 @@
 "use client";
-
-import React from "react";
 import style from "./followRecommend.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { User } from "@/model/User";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { followUser } from "../_lib/followUser";
+import { unFollowUser } from "../_lib/unFollowUser";
 
 type Props = {
   user: User;
@@ -13,9 +14,211 @@ type Props = {
 const FollowRecommend = ({ user }: Props) => {
   const router = useRouter();
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
+  const isFollowing = !!user.Followers.find(
+    (v) => v.id === session?.user?.email
+  );
 
-  const onFollow = () => {
-    if (!session?.user) router.push("/");
+  const follow = useMutation({
+    mutationFn: followUser,
+    onMutate: () => {
+      const queryCache = queryClient.getQueryCache();
+      const queryKeys = queryCache
+        .getAll()
+        .map((cache) => cache.queryKey)
+        .filter((key) => key[0] === "users");
+
+      queryKeys.forEach((queryKey) => {
+        const value: User | User[] | undefined =
+          queryClient.getQueryData(queryKey);
+
+        if (value && Array.isArray(value)) {
+          const index = value.findIndex((v) => v.id === user.id);
+          const shallow = [...value];
+
+          shallow[index] = {
+            ...shallow[index],
+            Followers: [
+              ...shallow[index].Followers,
+              { id: session?.user?.email as string },
+            ],
+            _count: {
+              ...shallow[index]._count,
+              Followers: shallow[index]._count?.Followers + 1,
+            },
+          };
+          queryClient.setQueryData(queryKey, shallow);
+        } else if (value) {
+          const shallow = {
+            ...value,
+            Followers: [
+              ...value.Followers,
+              { id: session?.user?.email as string },
+            ],
+            _count: {
+              ...value._count,
+              Followers: value._count?.Followers + 1,
+            },
+          };
+          queryClient.setQueryData(queryKey, shallow);
+        }
+      });
+    },
+    onError: (error) => {
+      alert(`에러 발생 팔로우 실패 ${error}`);
+      const queryCache = queryClient.getQueryCache();
+      const queryKeys = queryCache
+        .getAll()
+        .map((cache) => cache.queryKey)
+        .filter((key) => key[0] === "users");
+
+      queryKeys.forEach((queryKey) => {
+        const value: User | User[] | undefined =
+          queryClient.getQueryData(queryKey);
+
+        if (value && Array.isArray(value)) {
+          const index = value.findIndex((v) => v.id === user.id);
+          const shallow = [...value];
+
+          shallow[index] = {
+            ...shallow[index],
+            Followers: shallow[index].Followers.filter(
+              (v) => v.id !== session?.user?.email
+            ),
+            _count: {
+              ...shallow[index]._count,
+              Followers: shallow[index]._count?.Followers - 1,
+            },
+          };
+          queryClient.setQueryData(queryKey, shallow);
+        } else if (value) {
+          const shallow = {
+            ...value,
+            Followers: value.Followers.filter(
+              (v) => v.id !== session?.user?.email
+            ),
+            _count: {
+              ...value._count,
+              Followers: value._count?.Followers - 1,
+            },
+          };
+
+          queryClient.setQueryData(queryKey, shallow);
+        }
+      });
+    },
+    onSettled: (data) => {
+      // queryClient.invalidateQueries({queryKey: ["users"]})
+      queryClient.invalidateQueries({ queryKey: ["posts", "followings"] });
+    },
+  });
+
+  const unfollow = useMutation({
+    mutationFn: unFollowUser,
+    onMutate: () => {
+      const queryCache = queryClient.getQueryCache();
+      const queryKeys = queryCache
+        .getAll()
+        .map((cache) => cache.queryKey)
+        .filter((key) => key[0] === "users");
+
+      queryKeys.forEach((queryKey) => {
+        const value: User | User[] | undefined =
+          queryClient.getQueryData(queryKey);
+
+        if (value && Array.isArray(value)) {
+          const index = value.findIndex((v) => v.id === user.id);
+          const shallow = [...value];
+
+          shallow[index] = {
+            ...shallow[index],
+            Followers: shallow[index].Followers.filter(
+              (v) => v.id !== session?.user?.email
+            ),
+            _count: {
+              ...shallow[index]._count,
+              Followers: shallow[index]._count?.Followers - 1,
+            },
+          };
+          queryClient.setQueryData(queryKey, shallow);
+        } else if (value) {
+          const shallow = {
+            ...value,
+            Followers: value.Followers.filter(
+              (v) => v.id !== session?.user?.email
+            ),
+            _count: {
+              ...value._count,
+              Followers: value._count?.Followers - 1,
+            },
+          };
+
+          queryClient.setQueryData(queryKey, shallow);
+        }
+      });
+    },
+    onError: (error) => {
+      alert(`에러 발생 언팔로우 실패 ${error}`);
+      const queryCache = queryClient.getQueryCache();
+      const queryKeys = queryCache
+        .getAll()
+        .map((cache) => cache.queryKey)
+        .filter((key) => key[0] === "users");
+
+      queryKeys.forEach((queryKey) => {
+        const value: User | User[] | undefined =
+          queryClient.getQueryData(queryKey);
+
+        if (value && Array.isArray(value)) {
+          const index = value.findIndex((v) => v.id === user.id);
+          const shallow = [...value];
+
+          shallow[index] = {
+            ...shallow[index],
+            Followers: [
+              ...shallow[index].Followers,
+              { id: session?.user?.email as string },
+            ],
+            _count: {
+              ...shallow[index]._count,
+              Followers: shallow[index]._count?.Followers + 1,
+            },
+          };
+          queryClient.setQueryData(queryKey, shallow);
+        } else if (value) {
+          const shallow = {
+            ...value,
+            Followers: [
+              ...value.Followers,
+              { id: session?.user?.email as string },
+            ],
+            _count: {
+              ...value._count,
+              Followers: value._count?.Followers + 1,
+            },
+          };
+
+          queryClient.setQueryData(queryKey, shallow);
+        }
+      });
+    },
+    onSettled: () => {
+      // queryClient.invalidateQueries({queryKey: ["users"]})
+      queryClient.invalidateQueries({ queryKey: ["posts", "followings"] });
+    },
+  });
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!session?.user) {
+      alert("로그인을 해주세요.");
+      router.push("/");
+    }
+
+    if (isFollowing) {
+      unfollow.mutate(user.id);
+    } else {
+      follow.mutate(user.id);
+    }
   };
 
   return (
@@ -29,8 +232,12 @@ const FollowRecommend = ({ user }: Props) => {
         <div className={style.title}>{user.nickname}</div>
         <div className={style.count}>@{user.id}</div>
       </div>
-      <div className={style.followButtonSection}>
-        <button onClick={onFollow}>팔로우</button>
+      <div
+        className={`${style.followButtonSection} ${
+          isFollowing && style.followed
+        }`}
+      >
+        <button onClick={onClick}>{isFollowing ? "팔로잉" : "팔로우"}</button>
       </div>
     </div>
   );

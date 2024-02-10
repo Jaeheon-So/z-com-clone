@@ -95,8 +95,8 @@ const ActionButtons = ({ white, post }: Props) => {
       });
       return { previousData };
     },
-    onError: (err, _, context) => {
-      alert("에러 발생 좋아요 실패");
+    onError: (error, _, context) => {
+      alert(`에러 발생 좋아요 실패 ${error}`);
       //방법 1
       // context?.previousData.forEach((v) => {
       //   queryClient.setQueryData(v.queryKey, v.data)
@@ -230,8 +230,8 @@ const ActionButtons = ({ white, post }: Props) => {
       });
       return { previousData };
     },
-    onError: (err, _, context) => {
-      alert("에러 발생 좋아요 해제 실패");
+    onError: (error, _, context) => {
+      alert(`에러 발생 좋아요 해제 실패 ${error}`);
       //방법 1
       // context?.previousData.forEach((v) => {
       //   queryClient.setQueryData(v.queryKey, v.data)
@@ -317,7 +317,7 @@ const ActionButtons = ({ white, post }: Props) => {
         <button onClick={onClickComment}>
           <CommentSvg />
         </button>
-        <div className={style.count}>{post._count.Comments || ""}</div>
+        <div className={style.count}>{post._count?.Comments || ""}</div>
       </div>
       <div
         className={`${style.repostButton} ${reposted && style.reposted} ${
@@ -327,7 +327,7 @@ const ActionButtons = ({ white, post }: Props) => {
         <button onClick={onClickRepost}>
           <RepostSvg />
         </button>
-        <div className={style.count}>{post._count.Reposts || ""}</div>
+        <div className={style.count}>{post._count?.Reposts || ""}</div>
       </div>
       <div
         className={`${style.heartButton} ${liked && style.liked} ${
@@ -337,7 +337,7 @@ const ActionButtons = ({ white, post }: Props) => {
         <button onClick={onClickHeart}>
           <HeartSvg />
         </button>
-        <div className={style.count}>{post._count.Hearts || ""}</div>
+        <div className={style.count}>{post._count?.Hearts || ""}</div>
       </div>
     </div>
   );

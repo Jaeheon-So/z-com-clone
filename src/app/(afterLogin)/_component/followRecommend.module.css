@@ -50,3 +50,11 @@
 .followButtonSection button:hover {
   background-color: rgb(39, 44, 48);
 }
+.followButtonSection.followed button {
+  background: white;
+  color: black;
+  border: 1px solid grey;
+}
+.followButtonSection.followed button:hover {
+  background: lightgray;
+}
