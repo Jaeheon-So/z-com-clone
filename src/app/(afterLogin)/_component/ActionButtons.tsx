@@ -8,6 +8,7 @@ import style from "./actionButtons.module.css";
 import { useSession } from "next-auth/react";
 import {
   InfiniteData,
+  QueryKey,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
@@ -38,6 +39,10 @@ const ActionButtons = ({ white, post }: Props) => {
         .getAll()
         .map((cache) => cache.queryKey)
         .filter((key) => key[0] === "posts");
+      const previousData: {
+        queryKey: QueryKey;
+        data: Post | InfiniteData<Post[]> | undefined;
+      }[] = [];
 
       queryKeys.forEach((queryKey) => {
         const value: Post | InfiniteData<Post[]> | undefined =
@@ -64,6 +69,10 @@ const ActionButtons = ({ white, post }: Props) => {
                 Hearts: shallow.pages[pageIndex][index]._count.Hearts + 1,
               },
             };
+            previousData.push({
+              queryKey: queryKey,
+              data: value,
+            });
             queryClient.setQueryData(queryKey, shallow);
           }
         } else if (value) {
@@ -76,12 +85,24 @@ const ActionButtons = ({ white, post }: Props) => {
                 Hearts: value._count.Hearts + 1,
               },
             };
+            previousData.push({
+              queryKey: queryKey,
+              data: value,
+            });
             queryClient.setQueryData(queryKey, shallow);
           }
         }
       });
+      return { previousData };
     },
-    onError: () => {
+    onError: (err, _, context) => {
+      alert("에러 발생 좋아요 실패");
+      //방법 1
+      // context?.previousData.forEach((v) => {
+      //   queryClient.setQueryData(v.queryKey, v.data)
+      // })
+
+      //방법2
       const queryCache = queryClient.getQueryCache();
       const queryKeys = queryCache
         .getAll()
@@ -149,6 +170,10 @@ const ActionButtons = ({ white, post }: Props) => {
         .getAll()
         .map((cache) => cache.queryKey)
         .filter((key) => key[0] === "posts");
+      const previousData: {
+        queryKey: QueryKey;
+        data: Post | InfiniteData<Post[]> | undefined;
+      }[] = [];
 
       queryKeys.forEach((queryKey) => {
         const value: Post | InfiniteData<Post[]> | undefined =
@@ -177,6 +202,10 @@ const ActionButtons = ({ white, post }: Props) => {
                 Hearts: shallow.pages[pageIndex][index]._count.Hearts - 1,
               },
             };
+            previousData.push({
+              queryKey: queryKey,
+              data: value,
+            });
             queryClient.setQueryData(queryKey, shallow);
           }
         } else if (value) {
@@ -191,12 +220,24 @@ const ActionButtons = ({ white, post }: Props) => {
                 Hearts: value._count.Hearts - 1,
               },
             };
+            previousData.push({
+              queryKey: queryKey,
+              data: value,
+            });
             queryClient.setQueryData(queryKey, shallow);
           }
         }
       });
+      return { previousData };
     },
-    onError: () => {
+    onError: (err, _, context) => {
+      alert("에러 발생 좋아요 해제 실패");
+      //방법 1
+      // context?.previousData.forEach((v) => {
+      //   queryClient.setQueryData(v.queryKey, v.data)
+      // })
+
+      //방법2
       const queryCache = queryClient.getQueryCache();
       const queryKeys = queryCache
         .getAll()
