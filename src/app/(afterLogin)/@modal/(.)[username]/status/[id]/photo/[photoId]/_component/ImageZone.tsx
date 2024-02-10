@@ -32,7 +32,7 @@ const ImageZone = ({ id }: Props) => {
       />
       <div className={style.buttonZone}>
         <div className={style.buttonInner}>
-          <ActionButtons white={true} />
+          <ActionButtons white={true} post={post!} />
         </div>
       </div>
     </div>

@@ -16,6 +16,10 @@ type Props = {
 };
 
 const PostImages = ({ post }: Props) => {
+  const stopPropagation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.stopPropagation();
+  };
+
   const imageLengthData: {
     [key: string]: {
       className: string;
@@ -61,6 +65,7 @@ const PostImages = ({ post }: Props) => {
           backgroundImage: `url(${post.Images[0]?.link})`,
           backgroundSize: "contain",
         }}
+        onClick={stopPropagation}
       >
         <img src={post.Images[0]?.link} alt="" />
       </Link>
@@ -77,6 +82,7 @@ const PostImages = ({ post }: Props) => {
             backgroundSize: "cover",
             backgroundPosition: "center center",
           }}
+          onClick={stopPropagation}
         ></Link>
         <div>
           <Link
@@ -86,6 +92,7 @@ const PostImages = ({ post }: Props) => {
               backgroundSize: "cover",
               backgroundPosition: "center center",
             }}
+            onClick={stopPropagation}
           ></Link>
           <Link
             href={`/${post.User.id}/status/${post.postId}/photo/${post.Images[2].imageId}`}
@@ -94,6 +101,7 @@ const PostImages = ({ post }: Props) => {
               backgroundSize: "cover",
               backgroundPosition: "center center",
             }}
+            onClick={stopPropagation}
           ></Link>
         </div>
       </div>
@@ -111,6 +119,7 @@ const PostImages = ({ post }: Props) => {
             backgroundPosition: "center center",
           }}
           key={img.imageId}
+          onClick={stopPropagation}
         ></Link>
       ))}
     </div>

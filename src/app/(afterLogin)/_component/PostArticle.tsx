@@ -24,11 +24,12 @@ const PostArticle = ({ children, post }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     router.push(`/${post.User.id}/status/${post.postId}`);
   };
 
   return (
-    <article className={style.post} onClickCapture={onClick} ref={articleRef}>
+    <article className={style.post} onClick={onClick} ref={articleRef}>
       {children}
     </article>
   );
