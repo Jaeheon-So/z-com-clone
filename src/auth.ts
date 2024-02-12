@@ -27,7 +27,6 @@ export const {
         });
 
         let setCookie = authResponse.headers.get("Set-Cookie");
-        console.log("set-cookie", setCookie);
         if (setCookie) {
           const parsed = cookie.parse(setCookie);
           cookies().set("connect.sid", parsed["connect.sid"], parsed); // 브라우저에 쿠키를 심어주는 것

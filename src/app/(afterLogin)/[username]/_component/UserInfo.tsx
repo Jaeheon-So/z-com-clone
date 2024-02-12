@@ -66,7 +66,7 @@ const UserInfo = ({ username, session }: Props) => {
   const isFollowing = !!user?.Followers?.find(
     (v) => v.id === session?.user?.email
   );
-  console.log(isFollowing);
+
   const follow = useMutation({
     mutationFn: followUser,
     onMutate: () => {
@@ -115,7 +115,6 @@ const UserInfo = ({ username, session }: Props) => {
       });
     },
     onError: (error) => {
-      console.log(error);
       alert(`에러 발생 팔로우 실패 ${error}`);
       const queryCache = queryClient.getQueryCache();
       const queryKeys = queryCache

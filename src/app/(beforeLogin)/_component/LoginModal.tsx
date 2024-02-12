@@ -42,7 +42,6 @@ const LoginModal = () => {
         password,
         redirect: false,
       });
-      console.log(res);
       if (res?.error === "CallbackRouteError") {
         idRef.current?.focus();
         setMessage("아이디가 존재하지 않습니다.");
@@ -54,7 +53,6 @@ const LoginModal = () => {
         router.replace("/home");
       }
     } catch (error) {
-      console.log(error);
       setMessage("아이디 혹은 패스워드가 일치하지 않습니다.");
     }
   };

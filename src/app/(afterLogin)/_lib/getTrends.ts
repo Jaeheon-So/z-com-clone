@@ -11,7 +11,6 @@ export const getTrends = async () => {
   );
 
   if (!res.ok) {
-    console.log(res);
     throw new Error("failed to fetch data");
   }
 

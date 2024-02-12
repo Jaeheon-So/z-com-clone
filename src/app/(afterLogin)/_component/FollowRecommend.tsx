@@ -1,4 +1,5 @@
 "use client";
+
 import style from "./followRecommend.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
