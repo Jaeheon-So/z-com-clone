@@ -31,7 +31,7 @@ const CommentForm = ({ id }: Props) => {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={`/${me?.user?.image!}`} alt={me?.user?.email || ""} />
+          <img src={`${me?.user?.image!}`} alt={me?.user?.email || ""} />
         </div>
       </div>
       <div className={style.postInputSection}>

@@ -50,7 +50,7 @@ const ComposeTweetModal = () => {
           <div className={style.modalBody}>
             <div className={style.postUserSection}>
               <div className={style.postUserImage}>
-                <img src={`/${me?.user?.image!}`} alt={me?.user?.email || ""} />
+                <img src={`${me?.user?.image!}`} alt={me?.user?.email || ""} />
               </div>
             </div>
             <div className={style.inputDiv}>
