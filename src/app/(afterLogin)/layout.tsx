@@ -20,21 +20,21 @@ const AfterLoginLayout = async ({ children, modal }: Props) => {
   const session = await auth();
 
   return (
-    <div className={style.container}>
-      <header className={style.leftSectionWrapper}>
-        <section className={style.leftSection}>
-          <div className={style.leftSectionFixed}>
-            <Link className={style.logo} href={session?.user ? "/home" : "/"}>
-              <div className={style.logoPill}>
-                <Image src={zLogo} alt="logo" width={40} height={40} />
-              </div>
-            </Link>
-            {session?.user && <NavMenu />}
-            <LogoutButton me={session} />
-          </div>
-        </section>
-      </header>
-      <RQProvider>
+    <RQProvider>
+      <div className={style.container}>
+        <header className={style.leftSectionWrapper}>
+          <section className={style.leftSection}>
+            <div className={style.leftSectionFixed}>
+              <Link className={style.logo} href={session?.user ? "/home" : "/"}>
+                <div className={style.logoPill}>
+                  <Image src={zLogo} alt="logo" width={40} height={40} />
+                </div>
+              </Link>
+              {session?.user && <NavMenu />}
+              <LogoutButton me={session} />
+            </div>
+          </section>
+        </header>
         <div className={style.rightSectionWrapper}>
           <div className={style.rightSectionInner}>
             <main className={style.main}>{children}</main>
@@ -48,8 +48,8 @@ const AfterLoginLayout = async ({ children, modal }: Props) => {
           </div>
         </div>
         {modal}
-      </RQProvider>
-    </div>
+      </div>
+    </RQProvider>
   );
 };
 

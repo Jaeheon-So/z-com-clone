@@ -5,6 +5,7 @@ import style from "./logoutButton.module.css";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Session } from "@auth/core/types";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   me: Session | null;
@@ -12,10 +13,21 @@ type Props = {
 
 const LogoutButton = ({ me }: Props) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const onLogout = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["posts"],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["users"],
+    });
     signOut({ redirect: false })
-      .then(() => {
+      .then(async () => {
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+          method: "post",
+          credentials: "include",
+        });
         alert("로그아웃 성공");
         router.replace("/");
       })

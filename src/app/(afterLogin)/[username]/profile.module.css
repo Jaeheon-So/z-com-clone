@@ -76,6 +76,15 @@
   background-color: rgb(39, 44, 48);
 }
 
+.followButton.followed {
+  background: white;
+  color: black;
+  border: 1px solid grey;
+}
+.followButton.followed button:hover {
+  background: lightgray;
+}
+
 .backButton {
   width: 34px;
   height: 34px;

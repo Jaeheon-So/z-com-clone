@@ -12,7 +12,7 @@ export const getUser: QueryFunction<
       next: {
         tags: ["users", username],
       },
-      // credentials: "include",
+      credentials: "include",
       cache: "no-store",
     }
   );
