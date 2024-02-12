@@ -8,9 +8,12 @@ const TrendSectionBg = () => {
   return (
     <div className={style.trendBg}>
       <QueryErrorReset message="트렌드 불러오기 실패">
-        <Suspense fallback={<Loading />}>
-          <TrendSection />
-        </Suspense>
+        <div className={style.trend}>
+          <h3>나를 위한 트렌드</h3>
+          <Suspense fallback={<Loading />}>
+            <TrendSection />
+          </Suspense>
+        </div>
       </QueryErrorReset>
     </div>
   );

@@ -1,7 +1,12 @@
 .container {
-  padding: 12px 0;
+  padding: 12px;
   height: 66px;
   display: flex;
+  align-items: center;
+}
+
+.container:hover {
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 .userLogo {
