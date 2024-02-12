@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import TrendSection from "./TrendSection";
 import style from "./trendSection.module.css";
 import Loading from "./Loading";
 import QueryErrorReset from "./QueryErrorReset";
+import TrendTest from "./TrendTest";
 
 const TrendSectionBg = () => {
   return (
@@ -11,7 +11,7 @@ const TrendSectionBg = () => {
         <div className={style.trend}>
           <h3>나를 위한 트렌드</h3>
           <Suspense fallback={<Loading />}>
-            <TrendSection />
+            <TrendTest />
           </Suspense>
         </div>
       </QueryErrorReset>
