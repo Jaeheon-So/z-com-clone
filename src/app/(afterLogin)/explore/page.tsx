@@ -1,8 +1,12 @@
 import { Suspense } from "react";
-import SearchForm from "../_component/SearchForm";
-import style from "./explore.module.css";
 import TrendSection from "./_component/TrendSection";
 import Loading from "../_component/Loading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "탐색하기 / Z",
+  description: "탐색해보세요.",
+};
 
 const ExplorePage = () => {
   return (

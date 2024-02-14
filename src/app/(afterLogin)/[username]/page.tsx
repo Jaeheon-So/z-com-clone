@@ -9,6 +9,36 @@ import {
 import { getUserPosts } from "./_lib/getUserPosts";
 import { auth } from "@/auth";
 import { getUserServer } from "./_lib/getUserServer";
+import { User } from "@/model/User";
+
+// export async function generateMetadata({params}: Props) {
+//   const user: User = await getUserServer({ queryKey: ["users", params.username] });
+//   return {
+//     title: `${user.nickname} (${user.id}) / Z`,
+//     description: `${user.nickname} (${user.id}) 프로필`,
+//     openGraph: {
+//       title: `${user.nickname} (${user.id}) / Z`,
+//       description: `${user.nickname} (${user.id}) 프로필`,
+//       images: [
+//         {
+//           url: `https://z.nodebird.com${user.image}`,
+//           width: 400,
+//           height: 400,
+//         },
+//       ]
+//     }
+//   }
+// }
+
+export async function generateMetadata({ params }: Props) {
+  const user: User = await getUserServer({
+    queryKey: ["users", params.username],
+  });
+  return {
+    title: `${user.nickname} (${user.id}) / Z`,
+    description: `${user.nickname} (${user.id}) 프로필`,
+  };
+}
 
 type Props = {
   params: { username: string };

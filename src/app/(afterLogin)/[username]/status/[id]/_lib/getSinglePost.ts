@@ -13,6 +13,7 @@ export const getSinglePost: QueryFunction<
       next: {
         tags: ["posts", id],
       },
+      // credentials: "include"
     }
   );
 
