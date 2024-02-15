@@ -8,6 +8,7 @@ import PostArticle from "./PostArticle";
 import PostImages from "./PostImages";
 import { Post } from "@/model/Post";
 import React from "react";
+import RepostSvg from "../_svg/RepostSvg";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -18,7 +19,11 @@ type Props = {
 };
 
 const Post = ({ noImage, post }: Props) => {
-  const target = post;
+  let target = post;
+
+  if (post.Original) {
+    target = post.Original;
+  }
 
   const stopPropagation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
@@ -26,6 +31,12 @@ const Post = ({ noImage, post }: Props) => {
 
   return (
     <PostArticle post={target}>
+      {post.Original && (
+        <div className={style.postReposted}>
+          <RepostSvg />
+          재게시했습니다
+        </div>
+      )}
       <div className={style.postWrapper}>
         <div className={style.postUserSection}>
           <Link
