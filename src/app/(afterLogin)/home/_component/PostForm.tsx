@@ -74,7 +74,7 @@ const PostForm = ({ me }: Props) => {
       // queryClient.invalidateQueries({
       //   queryKey: ["posts", "followings"],
       // });
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ["trends"],
       });
     },
