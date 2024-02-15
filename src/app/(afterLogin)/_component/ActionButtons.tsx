@@ -16,6 +16,8 @@ import { deleteHeart } from "../_lib/deleteHeart";
 import { addHeart } from "../_lib/addHeart";
 import { addRepost } from "../_lib/addRepost";
 import { deleteRepost } from "../_lib/deleteRepost";
+import { useRouter } from "next/navigation";
+import { useModalStore } from "@/store/modal";
 
 type Props = {
   white?: boolean;
@@ -23,11 +25,10 @@ type Props = {
 };
 
 const ActionButtons = ({ white, post }: Props) => {
+  const router = useRouter();
   const { data: session } = useSession();
   const queryClient = useQueryClient();
-  const commented = !!post.Comments?.find(
-    (v) => v.userId === session?.user?.email
-  );
+  const modalStore = useModalStore();
   const reposted = !!post.Reposts?.find(
     (v) => v.userId === session?.user?.email
   );
@@ -424,7 +425,11 @@ const ActionButtons = ({ white, post }: Props) => {
 
   const onClickComment = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    modalStore.setMode("comment");
+    modalStore.setData(post);
+    router.push(`/compose/tweet`);
   };
+
   const onClickRepost = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (!reposted) {
@@ -446,11 +451,7 @@ const ActionButtons = ({ white, post }: Props) => {
 
   return (
     <div className={style.actionButtons}>
-      <div
-        className={`${style.commentButton} ${commented && style.commented} ${
-          white && style.white
-        }`}
-      >
+      <div className={`${style.commentButton} ${white && style.white}`}>
         <button onClick={onClickComment}>
           <CommentSvg />
         </button>
