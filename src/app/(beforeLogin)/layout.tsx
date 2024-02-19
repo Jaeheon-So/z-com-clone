@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import styles from "@/app/(beforeLogin)/_component/main.module.css";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import RedirectAuth from "./_component/RedirectAuth";
 
 type Props = {
   children: ReactNode;
@@ -19,6 +20,7 @@ const BeforeLoginLayout = async ({ children, modal }: Props) => {
     <div className={styles.container}>
       {children}
       {modal}
+      <RedirectAuth />
     </div>
   );
 };

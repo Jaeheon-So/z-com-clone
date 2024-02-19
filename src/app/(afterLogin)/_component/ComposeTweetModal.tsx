@@ -31,11 +31,6 @@ const ComposeTweetModal = () => {
   const queryClient = useQueryClient();
   const parent = modalStore.data;
 
-  const pathname = usePathname();
-  if (pathname !== "/compose/tweet") {
-    return null;
-  }
-
   const postFormMutation = useMutation({
     mutationFn: submitPost,
     async onSuccess(response) {
@@ -157,6 +152,11 @@ const ComposeTweetModal = () => {
       router.back();
     },
   });
+
+  const pathname = usePathname();
+  if (pathname !== "/compose/tweet") {
+    return null;
+  }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

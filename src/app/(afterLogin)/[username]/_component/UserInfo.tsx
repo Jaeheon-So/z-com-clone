@@ -30,43 +30,6 @@ const UserInfo = ({ username, session }: Props) => {
     gcTime: 300 * 1000,
   });
 
-  if (!user) {
-    return null;
-  }
-
-  if (error) {
-    return (
-      <>
-        <div className={style.header}>
-          <BackButton />
-          <h3 className={style.headerTitle}>프로필</h3>
-        </div>
-        <div className={style.userZone}>
-          <div className={style.userImage}></div>
-          <div className={style.userName}>
-            <div>@{username}</div>
-          </div>
-        </div>
-        <div
-          style={{
-            height: 100,
-            alignItems: "center",
-            fontSize: 31,
-            fontWeight: "bold",
-            justifyContent: "center",
-            display: "flex",
-          }}
-        >
-          계정이 존재하지 않음
-        </div>
-      </>
-    );
-  }
-
-  const isFollowing = !!user?.Followers?.find(
-    (v) => v.id === session?.user?.email
-  );
-
   const follow = useMutation({
     mutationFn: followUser,
     onMutate: () => {
@@ -81,7 +44,7 @@ const UserInfo = ({ username, session }: Props) => {
           queryClient.getQueryData(queryKey);
 
         if (value && Array.isArray(value)) {
-          const index = value.findIndex((v) => v.id === user.id);
+          const index = value.findIndex((v) => v.id === user?.id);
           const shallow = [...value];
 
           if (index > -1) {
@@ -127,7 +90,7 @@ const UserInfo = ({ username, session }: Props) => {
           queryClient.getQueryData(queryKey);
 
         if (value && Array.isArray(value)) {
-          const index = value.findIndex((v) => v.id === user.id);
+          const index = value.findIndex((v) => v.id === user?.id);
           const shallow = [...value];
 
           if (index > -1) {
@@ -179,7 +142,7 @@ const UserInfo = ({ username, session }: Props) => {
           queryClient.getQueryData(queryKey);
 
         if (value && Array.isArray(value)) {
-          const index = value.findIndex((v) => v.id === user.id);
+          const index = value.findIndex((v) => v.id === user?.id);
           const shallow = [...value];
           if (index > -1) {
             shallow[index] = {
@@ -223,7 +186,7 @@ const UserInfo = ({ username, session }: Props) => {
           queryClient.getQueryData(queryKey);
 
         if (value && Array.isArray(value)) {
-          const index = value.findIndex((v) => v.id === user.id);
+          const index = value.findIndex((v) => v.id === user?.id);
           const shallow = [...value];
           if (index > -1) {
             shallow[index] = {
@@ -261,6 +224,43 @@ const UserInfo = ({ username, session }: Props) => {
       queryClient.invalidateQueries({ queryKey: ["posts", "followings"] });
     },
   });
+
+  if (!user) {
+    return null;
+  }
+
+  if (error) {
+    return (
+      <>
+        <div className={style.header}>
+          <BackButton />
+          <h3 className={style.headerTitle}>프로필</h3>
+        </div>
+        <div className={style.userZone}>
+          <div className={style.userImage}></div>
+          <div className={style.userName}>
+            <div>@{username}</div>
+          </div>
+        </div>
+        <div
+          style={{
+            height: 100,
+            alignItems: "center",
+            fontSize: 31,
+            fontWeight: "bold",
+            justifyContent: "center",
+            display: "flex",
+          }}
+        >
+          계정이 존재하지 않음
+        </div>
+      </>
+    );
+  }
+
+  const isFollowing = !!user?.Followers?.find(
+    (v) => v.id === session?.user?.email
+  );
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

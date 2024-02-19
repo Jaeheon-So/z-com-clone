@@ -29,7 +29,7 @@ const LogoutButton = ({ me }: Props) => {
           credentials: "include",
         });
         alert("로그아웃 성공");
-        router.refresh();
+        // router.refresh();
         router.replace("/");
       })
       .catch((error) => {
