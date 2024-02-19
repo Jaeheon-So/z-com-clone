@@ -2,10 +2,11 @@
 
 import style from "@/app/(beforeLogin)/_component/signup.module.css";
 import { usePathname, useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import BackButton from "./BackButton";
 import { onSubmit } from "../_lib/signup";
 import { useFormState, useFormStatus } from "react-dom";
+import { signIn } from "next-auth/react";
 
 const SignupModal = () => {
   const router = useRouter();
@@ -17,15 +18,27 @@ const SignupModal = () => {
     message: "",
   });
   const { pending } = useFormStatus();
-
   const pathname = usePathname();
-  if (pathname !== "/i/flow/signup") {
-    return null;
-  }
+  const formData = new FormData();
 
   const modalOutSideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current === e.target) {
       router.back();
+    }
+  };
+
+  const checkAutoLogin = async () => {
+    console.log(formData.get("id"), formData.get("password"));
+    if (confirm("바로 로그인 하시겠습니까?")) {
+      const res = await signIn("credentials", {
+        username: formData.get("id"),
+        password: formData.get("password"),
+        redirect: false,
+      });
+      if (!res?.error) alert("로그인 성공");
+      router.replace("/home");
+    } else {
+      router.replace("/");
     }
   };
 
@@ -48,6 +61,11 @@ const SignupModal = () => {
     if (messasge === "user_exist") {
       idRef.current?.focus();
       return "이미 사용 중인 아이디입니다.";
+    }
+    if (messasge === "success") {
+      formData.append("id", state?.id as string);
+      formData.append("password", state?.password as string);
+      return null;
     }
     return messasge;
   };
@@ -72,6 +90,12 @@ const SignupModal = () => {
     }
   };
 
+  useEffect(() => {
+    if (state?.message === "success") {
+      checkAutoLogin();
+    }
+  }, [state?.message]);
+
   // const onSubmit: FormEventHandler = (e) => {
   //   e.preventDefault();
   //   fetch("http://localhost:9090/api/users", {
@@ -94,6 +118,10 @@ const SignupModal = () => {
   //       console.error(err);
   //     });
   // };
+
+  if (pathname !== "/i/flow/signup") {
+    return null;
+  }
 
   return (
     <>

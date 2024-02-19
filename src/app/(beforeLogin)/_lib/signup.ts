@@ -39,16 +39,21 @@ export const onSubmit = async (prevState: any, formData: FormData) => {
 
     if (response.status === 201) {
       shouldRedirect = true;
-      await signIn("credentials", {
-        username: formData.get("id"),
+      return {
+        message: "success",
+        id: formData.get("id"),
         password: formData.get("password"),
-        redirect: false,
-      });
+      };
+      // await signIn("credentials", {
+      //   username: formData.get("id"),
+      //   password: formData.get("password"),
+      //   redirect: false,
+      // });
     }
   } catch (error: any) {
     if (error.response?.status === 403) return { message: "user_exist" };
     return { message: "서버 에러 발생" };
   }
 
-  if (shouldRedirect) redirect("/home");
+  // if (shouldRedirect) redirect("/home");
 };

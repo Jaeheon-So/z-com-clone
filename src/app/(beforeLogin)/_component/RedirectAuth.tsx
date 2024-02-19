@@ -9,7 +9,6 @@ const RedirectAuth = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    console.log("hi", session?.user);
     if (session?.user) {
       router.push("/home");
     }
